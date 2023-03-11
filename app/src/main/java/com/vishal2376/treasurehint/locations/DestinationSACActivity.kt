@@ -1,7 +1,8 @@
-package com.vishal2376.treasurehint
+package com.vishal2376.treasurehint.locations
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.vishal2376.treasurehint.R
 
 class DestinationSACActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
