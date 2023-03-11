@@ -57,12 +57,12 @@
         android:layout_width="wrap_content"
         android:layout_height="200dp"
         android:src="@drawable/money_heist_character"
-        app:layout_constraintBottom_toTopOf="@id/layoutDescription"
+        app:layout_constraintBottom_toTopOf="@id/layoutUserInput"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <LinearLayout
-        android:id="@+id/layoutDescription"
+        android:id="@+id/layoutUserInput"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:background="@drawable/round_box"
