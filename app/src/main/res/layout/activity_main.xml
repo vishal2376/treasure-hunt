@@ -13,8 +13,8 @@
         android:layout_height="250dp"
         android:src="@drawable/money_heist_all_characters"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/text_presents"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/text_presents" />
 
     <ImageView
         android:id="@+id/ivGdscLogo"
@@ -76,8 +76,8 @@
                 android:id="@+id/editEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
                 android:fontFamily="@font/roboto"
+                android:inputType="textEmailAddress"
                 android:textColor="@color/colorRedDark" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -94,8 +94,8 @@
                 android:id="@+id/editPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
                 android:fontFamily="@font/roboto"
+                android:inputType="textPassword"
                 android:textColor="@color/colorRedDark" />
 
         </com.google.android.material.textfield.TextInputLayout>

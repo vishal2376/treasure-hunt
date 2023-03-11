@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorSkin"
-    tools:context=".DestinationAuditoriumActivity">
+    tools:context=".DestinationOpenAirGymActivity">
 
 
     <LinearLayout
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/roboto"
-        android:text="@string/reach_auditorium"
+        android:text="@string/reach_open_air_gym"
         android:textColor="@color/colorRedDark"
         android:textSize="35sp"
         android:textStyle="bold"

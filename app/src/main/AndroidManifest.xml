@@ -12,6 +12,18 @@
         android:theme="@style/Theme.TreasureHint"
         tools:targetApi="31">
         <activity
+            android:name=".DestinationSACActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DestinationOpenAirGymActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DestinationGroundActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Destination4HActivity"
+            android:exported="false" />
+        <activity
             android:name=".TeamActivity"
             android:exported="false" />
         <activity
