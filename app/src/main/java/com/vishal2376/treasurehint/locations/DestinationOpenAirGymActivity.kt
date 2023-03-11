@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.vishal2376.treasurehint.ProgressActivity
 import com.vishal2376.treasurehint.databinding.ActivityDestinationOpenAirGymBinding
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
@@ -16,6 +17,11 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationOpenAirGymBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.tvCheckpoint.setOnClickListener {
+            val intent = Intent(this, ProgressActivity::class.java)
+            startActivity(intent)
+        }
 
         binding.btnNext.setOnClickListener {
             val location = Locations[LocationCount - 1]
