@@ -12,6 +12,9 @@
         android:theme="@style/Theme.TreasureHint"
         tools:targetApi="31">
         <activity
+            android:name=".ProgressActivity"
+            android:exported="false" />
+        <activity
             android:name=".locations.DestinationSACActivity"
             android:exported="false" />
         <activity

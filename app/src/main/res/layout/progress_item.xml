@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="70dp">
+
+
+    <TextView
+        android:id="@+id/tvLocationName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_box_red"
+        android:fontFamily="@font/roboto"
+        android:letterSpacing="0.05"
+        android:paddingVertical="10dp"
+        android:text="@string/ground"
+        android:textAlignment="center"
+        android:textColor="@color/colorSkin"
+        android:textSize="20sp" />
+
+
+    <ImageView
+        android:id="@+id/ivLine"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:src="@drawable/line_circle" />
+
+</LinearLayout>
