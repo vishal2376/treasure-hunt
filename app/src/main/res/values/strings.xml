@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Treasure Hint</string>
+    <string name="app_name">Treasure Hunt</string>
     <string name="tasks">Tasks</string>
     <string name="dump">Pikachu was not necessarily destined for great popularity. He was not a standout “pocket monster” in Nintendo’s first Game Boy Pokémon title, Red and Green, but was one among 151 creatures that children could choose to play with.</string>
     <string name="reach_auditorium">Reach Auditorium</string>
+    <string name="presents">Presents</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="next">Next</string>
 </resources>
