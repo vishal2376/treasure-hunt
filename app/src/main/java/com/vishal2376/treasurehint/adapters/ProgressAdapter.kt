@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.vishal2376.treasurehint.R
+import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.LocationNames
 
 class ProgressAdapter(private val locationArray: Array<Int>) :
@@ -25,11 +26,15 @@ class ProgressAdapter(private val locationArray: Array<Int>) :
 
     override fun onBindViewHolder(holder: ProgressViewHolder, position: Int) {
 
+        if (position >= LocationCount - 1) {
+            holder.locationName.setBackgroundResource(R.color.colorGrey)
+        }
+
         if (LocationNames[locationArray[position]] == "4H") {
             holder.itemView.visibility = View.GONE
         } else {
-            holder.locationName.text = LocationNames[locationArray[position]].toString()
 
+            holder.locationName.text = LocationNames[locationArray[position]].toString()
             if (position >= locationArray.size - 2) {
                 holder.line.visibility = View.GONE
             }
