@@ -11,7 +11,7 @@
         android:id="@+id/text_checkpoints"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="@font/lacasa"
         android:letterSpacing="0.05"
         android:text="@string/checkpoints"
@@ -25,7 +25,7 @@
         android:id="@+id/rvProgress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        app:layout_constraintBottom_toTopOf="@+id/text_bonus"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_checkpoints" />
@@ -35,13 +35,14 @@
         android:id="@+id/text_bonus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
         android:fontFamily="@font/roboto"
         android:text="@string/bonus_location"
         android:textColor="@color/colorRedDark"
         android:textSize="20dp"
+        app:layout_constraintBottom_toTopOf="@+id/tvLocationName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rvProgress" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 
     <TextView
@@ -49,7 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="70dp"
-        android:layout_marginTop="21dp"
+        android:layout_marginBottom="50dp"
         android:background="@drawable/round_box_red"
         android:fontFamily="@font/roboto"
         android:letterSpacing="0.05"
@@ -58,7 +59,7 @@
         android:textAlignment="center"
         android:textColor="@color/colorSkin"
         android:textSize="20sp"
-        app:layout_constraintTop_toBottomOf="@+id/text_bonus"
+        app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="10dp" />
 
 
