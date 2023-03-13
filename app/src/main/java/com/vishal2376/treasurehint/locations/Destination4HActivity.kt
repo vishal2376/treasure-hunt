@@ -25,10 +25,10 @@ class Destination4HActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
-            val location = Locations[LocationCount - 1]
-            LocationCount++
             if (LocationCount <= 5) {
+                val location = Locations[LocationCount - 1]
                 NextLocation(location)
+                LocationCount++
             } else {
                 val intent = Intent(this, LeaderboardActivity::class.java)
                 startActivity(intent)

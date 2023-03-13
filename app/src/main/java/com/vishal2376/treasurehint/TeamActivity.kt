@@ -19,12 +19,13 @@ class TeamActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnStart.setOnClickListener {
-            val location = Locations[LocationCount - 1]
-            LocationCount++
             if (LocationCount <= 5) {
+                val location = Locations[LocationCount - 1]
                 NextLocation(location)
+                LocationCount++
             } else {
-                Toast.makeText(this, "Congratulations", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, LeaderboardActivity::class.java)
+                startActivity(intent)
             }
         }
     }
