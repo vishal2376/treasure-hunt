@@ -18,6 +18,7 @@ class MainActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             val intent = Intent(this, TeamActivity::class.java)
             startActivity(intent)
+            finish()
         }
     }
 

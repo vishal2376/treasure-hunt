@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.vishal2376.treasurehint.LeaderboardActivity
 import com.vishal2376.treasurehint.ProgressActivity
 import com.vishal2376.treasurehint.databinding.ActivityDestinationAuditoriumBinding
 import com.vishal2376.treasurehint.util.Constants.LocationCount
@@ -29,7 +30,8 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             if (LocationCount <= 5) {
                 NextLocation(location)
             } else {
-                Toast.makeText(this, "Congratulations", Toast.LENGTH_LONG).show()
+                val intent = Intent(this, LeaderboardActivity::class.java)
+                startActivity(intent)
             }
         }
     }
