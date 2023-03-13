@@ -11,7 +11,7 @@ import com.vishal2376.treasurehint.R
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.LocationNames
 
-class ProgressAdapter(private val locationArray: Array<Int>) :
+class ProgressAdapter(private val checkpointArray: Array<Int>) :
     Adapter<ProgressAdapter.ProgressViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProgressViewHolder {
@@ -21,21 +21,21 @@ class ProgressAdapter(private val locationArray: Array<Int>) :
     }
 
     override fun getItemCount(): Int {
-        return locationArray.size
+        return checkpointArray.size
     }
 
     override fun onBindViewHolder(holder: ProgressViewHolder, position: Int) {
 
         if (position >= LocationCount - 1) {
-            holder.locationName.setBackgroundResource(R.color.colorGrey)
+            holder.locationName.setBackgroundResource(R.drawable.round_box_grey)
         }
 
-        if (LocationNames[locationArray[position]] == "4H") {
+        if (LocationNames[checkpointArray[position]] == "4H") {
             holder.itemView.visibility = View.GONE
         } else {
 
-            holder.locationName.text = LocationNames[locationArray[position]].toString()
-            if (position >= locationArray.size - 2) {
+            holder.locationName.text = LocationNames[checkpointArray[position]].toString()
+            if (position >= checkpointArray.size - 1) {
                 holder.line.visibility = View.GONE
             }
         }
