@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginHorizontal="15dp"
+        android:paddingVertical="2dp"
+        android:layout_marginVertical="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@drawable/red_border_bg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <TextView
+            android:id="@+id/tvPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="10"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:textColor="@color/colorRedLight"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:fontFamily="@font/roboto"
+            android:text="Aditya Sood"
+            android:gravity="start"
+            android:textColor="@color/colorRedLight"
+            android:layout_weight="1.5"
+            android:textSize="22sp" />
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="100"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:layout_weight="3"
+            android:textColor="@color/colorRedLight"
+            android:layout_gravity="end"
+            android:textSize="22sp" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
