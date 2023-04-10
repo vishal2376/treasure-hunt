@@ -2,10 +2,16 @@ package com.vishal2376.treasurehint
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.get
+import com.google.gson.Gson
+import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityTeamBinding
 import com.vishal2376.treasurehint.locations.*
+import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
 
@@ -17,6 +23,11 @@ class TeamActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityTeamBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val userJson=intent.getStringExtra("UserJson")
+
+        val user= Gson().fromJson(userJson, User::class.java)
+
+        binding.tvTeamName.text=user.team.name
 
         binding.btnStart.setOnClickListener {
             if (LocationCount <= 5) {

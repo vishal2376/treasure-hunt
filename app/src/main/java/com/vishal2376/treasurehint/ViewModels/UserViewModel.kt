@@ -16,8 +16,8 @@ class UserViewModel:ViewModel() {
     val user: LiveData<User> = _user
    private val _loginDetails=MutableLiveData<LoginDetails>()
     val loginDetails:LiveData<LoginDetails> = _loginDetails
-   private val _changeState=MutableLiveData<Boolean>()
-    val changeState:LiveData<Boolean> = _changeState
+
+
      fun getUserData(loginData:LoginData) {
 
          viewModelScope.launch {

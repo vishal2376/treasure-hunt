@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
+import com.google.gson.Gson
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityMainBinding
 import com.vishal2376.treasurehint.models.LoginData
@@ -24,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     lateinit var viewModel: UserViewModel
 
+    lateinit var jsonString:String
     private fun initializeViewModel()
     {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
@@ -33,13 +35,24 @@ class MainActivity : AppCompatActivity() {
                    binding.editPassword.text.toString()
             )
         )
-        viewModel.loginDetails.observe(this, Observer { changeActivity(viewModel.loginDetails.value?.message.toString())})
+        viewModel.getUserData(
+            LoginData(
+                binding.editEmail.text.toString(),
+                binding.editPassword.text.toString()
+            )
+        )
+
+        Log.d("Network","${viewModel.user.value} hfdfggf")
+        viewModel.user.observe(this, Observer { changeActivity(viewModel.loginDetails.value?.message.toString())})
 
     }
 
     private fun changeActivity(message:String?) {
         if (message=="Login success") {
+            val gson=Gson()
+            jsonString=gson.toJson(viewModel.user.value)
             val intent = Intent(this, TeamActivity::class.java)
+            intent.putExtra("UserJson",jsonString)
             startActivity(intent)
             finish()
         }
