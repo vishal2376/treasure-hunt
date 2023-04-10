@@ -3,9 +3,11 @@ package com.vishal2376.treasurehint
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
 import com.vishal2376.treasurehint.adapters.LeaderboardAdapter
 import com.vishal2376.treasurehint.databinding.ActivityLeaderboardBinding
 import com.vishal2376.treasurehint.models.LeaderboardModel
+import com.vishal2376.treasurehint.models.User
 
 class LeaderboardActivity : AppCompatActivity() {
     private var _binding: ActivityLeaderboardBinding? = null
