@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.vishal2376.treasurehint.models.User
 import androidx.lifecycle.viewModelScope
+import com.vishal2376.treasurehint.models.LeaderBoard
 import com.vishal2376.treasurehint.models.LoginData
 import com.vishal2376.treasurehint.models.LoginDetails
 import com.vishal2376.treasurehint.network.NetworkApiService
@@ -16,7 +17,8 @@ class UserViewModel:ViewModel() {
     val user: LiveData<User> = _user
    private val _loginDetails=MutableLiveData<LoginDetails>()
     val loginDetails:LiveData<LoginDetails> = _loginDetails
-
+    private val _userList = MutableLiveData<LeaderBoard>()
+    val userList:LiveData<LeaderBoard> = _userList
 
      fun getUserData(loginData:LoginData) {
 
@@ -46,6 +48,18 @@ class UserViewModel:ViewModel() {
             } catch (e: Exception) {
 
               Log.d("Network","${e.message}")
+            }
+        }
+    }
+    fun getListUsers()
+    {
+        viewModelScope.launch {
+            try{
+                _userList.value=NetworkApiService.NetworkApi.retrofitService.getListUsers()
+                Log.d("Network","${userList.value}")
+            }
+            catch (e: Exception){
+                Log.d("Network","${e.message}")
             }
         }
     }

@@ -2,10 +2,7 @@ package com.vishal2376.treasurehint.network
 
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import com.vishal2376.treasurehint.models.LoginData
-import com.vishal2376.treasurehint.models.LoginDetails
-import com.vishal2376.treasurehint.models.Team
-import com.vishal2376.treasurehint.models.User
+import com.vishal2376.treasurehint.models.*
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
@@ -25,7 +22,7 @@ interface NetworkApiService {
 @POST("api/team/get")
 suspend fun getUser(@Body loginData:LoginData): User?
 @POST("api/team/all")
-suspend fun getListUsers():List<Team>
+suspend fun getListUsers():LeaderBoard?
 @Headers("Content-Type: application/json")
 @POST("api/team/login")
 suspend fun getLoginDetails(@Body loginData: LoginData):LoginDetails?
