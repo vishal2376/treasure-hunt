@@ -7,9 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.vishal2376.treasurehint.R
+import com.vishal2376.treasurehint.models.LeaderBoard
 import com.vishal2376.treasurehint.models.LeaderboardModel
 
-class LeaderboardAdapter(val leaderboardArray:ArrayList<LeaderboardModel>):RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
+class LeaderboardAdapter(val leaderboard:LeaderBoard):RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
     class ViewHolder(view: View):RecyclerView.ViewHolder(view){
         val tvScore:TextView
         val tvName:TextView
@@ -27,12 +28,12 @@ class LeaderboardAdapter(val leaderboardArray:ArrayList<LeaderboardModel>):Recyc
     }
 
     override fun getItemCount(): Int {
-        return leaderboardArray.size
+        return leaderboard.teams.size
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tvName.text = leaderboardArray[position].name
-        holder.tvScore.text = leaderboardArray[position].score
+        holder.tvName.text = leaderboard.teams[position].name
+        holder.tvScore.text = leaderboard.teams[position].score.toString()
     }
 
 }

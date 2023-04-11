@@ -1,9 +1,16 @@
 package com.vishal2376.treasurehint
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
+import com.vishal2376.treasurehint.ViewModels.ApiStatus
+import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.adapters.LeaderboardAdapter
 import com.vishal2376.treasurehint.databinding.ActivityLeaderboardBinding
 import com.vishal2376.treasurehint.models.LeaderboardModel
@@ -19,17 +26,29 @@ class LeaderboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val viewModel=ViewModelProvider(this).get(UserViewModel::class.java)
+        viewModel.getLeaderBoard()
 
-        //testing
-        leaderboardModel.name = "Xdtf"
-        leaderboardModel.score = "10"
         leaderboardArray.add(leaderboardModel)
+        binding.rvLeaderboard.layoutManager=LinearLayoutManager(this)
+        viewModel.allStatus.observe(this, Observer {
+          when(viewModel.allStatus.value)
+          {
+              ApiStatus.LOADING->{}
+              ApiStatus.ERROR->{
+                  Toast.makeText(this,"UNABLE TO FETCH LEADERBOARD",Toast.LENGTH_SHORT).show()
+              }
+              ApiStatus.SUCCESS->{
+                  binding.rvLeaderboard.adapter = LeaderboardAdapter(viewModel.leaderBoard.value!!)
+              }
+              else->{}
+
+          }
 
 
-        binding.rvLeaderboard.let {
-            it.layoutManager = LinearLayoutManager(this)
-            it.adapter = LeaderboardAdapter(leaderboardArray)
-        }
+
+
+        })
 
 
     }
