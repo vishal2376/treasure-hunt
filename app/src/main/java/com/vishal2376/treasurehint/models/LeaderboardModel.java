@@ -6,6 +6,9 @@ public class LeaderboardModel {
 
     public LeaderboardModel() {
 
+
+
+
     }
 
     public String getName() {

@@ -32,6 +32,9 @@ class LeaderboardAdapter(val leaderboard:LeaderBoard):RecyclerView.Adapter<Leade
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+//        val sortedTeams=leaderboard.teams.sortedByDescending{
+//
+//        }
         holder.tvName.text = leaderboard.teams[position].name
         holder.tvScore.text = leaderboard.teams[position].score.toString()
     }

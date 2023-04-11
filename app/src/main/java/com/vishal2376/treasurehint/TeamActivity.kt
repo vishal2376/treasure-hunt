@@ -14,6 +14,9 @@ import com.vishal2376.treasurehint.locations.*
 import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
+import java.time.OffsetDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class TeamActivity : AppCompatActivity() {
     private var _binding: ActivityTeamBinding? = null
@@ -29,6 +32,7 @@ class TeamActivity : AppCompatActivity() {
 
         binding.tvTeamName.text=user.team.name
 
+        dateSetter(user.team.checkpoints[0].startTime)
         binding.btnStart.setOnClickListener {
             if (LocationCount <= 5) {
                 val location = Locations[LocationCount - 1]
@@ -39,6 +43,13 @@ class TeamActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+    private fun dateSetter(string: String)
+    {
+        var dateString = string;
+        var odt = OffsetDateTime.parse(dateString);
+        var dtf = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
+        binding.tvTimeRemaining.text="START TIME : ${dtf.format(odt)}"
     }
 
     private fun NextLocation(location: Int) {
