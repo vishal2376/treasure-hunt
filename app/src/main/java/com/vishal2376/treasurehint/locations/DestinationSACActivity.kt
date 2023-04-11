@@ -3,6 +3,7 @@ package com.vishal2376.treasurehint.locations
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.vishal2376.treasurehint.LeaderboardActivity
 import com.vishal2376.treasurehint.ProgressActivity
@@ -23,6 +24,30 @@ class DestinationSACActivity : AppCompatActivity() {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        binding.btnHintSac.setOnClickListener{
+            val builder = AlertDialog.Builder(this)
+            builder.setTitle("Do you want to buy hint")
+            builder.setMessage("This hint will cost 100 coins")
+
+            builder.setPositiveButton("Yes") { dialog, which ->
+                //Alert which will show the hint after buying
+
+                val builder = AlertDialog.Builder(this)
+                builder.setTitle("Hint")
+                builder.setMessage("Here we will display hint")
+
+                builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                    builder.setCancelable(true)
+                }
+                builder.show()
+            }
+
+            builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                builder.setCancelable(true)
+            }
+
+            builder.show()
+        }
 
         binding.btnNext.setOnClickListener {
             if (LocationCount <= 5) {
@@ -34,6 +59,10 @@ class DestinationSACActivity : AppCompatActivity() {
                 startActivity(intent)
             }
         }
+    }
+
+    override fun onBackPressed() {
+
     }
 
     private fun NextLocation(location: Int) {

@@ -53,9 +53,11 @@ class MainActivity : AppCompatActivity() {
           }
           if(viewModel.loginStatus.value==ApiStatus.LOADING)
           {
-              binding.btnNext.visibility=View.INVISIBLE
+              binding.btnNext.visibility=View.GONE
+              showPB()
           }
           if(viewModel.loginStatus.value==ApiStatus.ERROR) {
+              hidePB()
               binding.btnNext.visibility = View.VISIBLE
               Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
           }
@@ -77,6 +79,13 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
+    private fun showPB(){
+        binding.pbMain.visibility = View.VISIBLE
+    }
+    private fun hidePB(){
+        binding.pbMain.visibility = View.GONE
+
+    }
 
     private fun checkUserData()
     {
@@ -87,9 +96,11 @@ class MainActivity : AppCompatActivity() {
 
             }
             if ( viewModel.userStatus.value == ApiStatus.LOADING ) {
-                binding.btnNext.visibility = View.INVISIBLE
+                binding.btnNext.visibility = View.GONE
+                showPB()
             }
             if ( viewModel.userStatus.value == ApiStatus.ERROR) {
+                hidePB()
                 Toast.makeText(this,"UNABLE TO FETCH DATA",Toast.LENGTH_LONG).show()
                 binding.btnNext.visibility=View.VISIBLE
             }
