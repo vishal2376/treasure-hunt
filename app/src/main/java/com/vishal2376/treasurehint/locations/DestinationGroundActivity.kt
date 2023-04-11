@@ -27,6 +27,16 @@ class DestinationGroundActivity : AppCompatActivity() {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        binding.btnNext.setOnClickListener {
+            if (LocationCount <= 5) {
+                val location = Locations[LocationCount - 1]
+                NextLocation(location)
+                LocationCount++
+            } else {
+                val intent = Intent(this, LeaderboardActivity::class.java)
+                startActivity(intent)
+            }
+        }
         var hintCheck=true
         binding.btnHintGround.setOnClickListener{
             if(hintCheck)
