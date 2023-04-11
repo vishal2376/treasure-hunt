@@ -21,12 +21,12 @@ import java.util.*
 class TeamActivity : AppCompatActivity() {
     private var _binding: ActivityTeamBinding? = null
     private val binding get() = _binding!!
-
+    lateinit var userJson:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityTeamBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val userJson=intent.getStringExtra("UserJson")
+        userJson=intent.getStringExtra("UserJson")!!
 
         val user= Gson().fromJson(userJson, User::class.java)
 
@@ -56,26 +56,31 @@ class TeamActivity : AppCompatActivity() {
         when (location) {
             1 -> {
                 val intent = Intent(this, Destination4HActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
 
             2 -> {
                 val intent = Intent(this, DestinationAuditoriumActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
 
             3 -> {
                 val intent = Intent(this, DestinationGroundActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
 
             4 -> {
                 val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
 
             5 -> {
                 val intent = Intent(this, DestinationSACActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
 
