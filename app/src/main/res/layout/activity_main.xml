@@ -7,6 +7,9 @@
     android:background="@color/colorSkin"
     tools:context=".MainActivity">
 
+
+
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="wrap_content"
@@ -111,7 +114,16 @@
             android:backgroundTint="@color/colorRedLight"
             android:text="@string/next"
             android:textColor="@color/colorSkin" />
+        <ProgressBar
+            android:id="@+id/pbMain"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
     </LinearLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
