@@ -1,8 +1,10 @@
 package com.vishal2376.treasurehint
 
 import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
@@ -10,6 +12,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import com.google.gson.Gson
+import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityMainBinding
 import com.vishal2376.treasurehint.models.LoginData
@@ -41,9 +44,25 @@ class MainActivity : AppCompatActivity() {
                 binding.editPassword.text.toString()
             )
         )
+     Log.d("Network","${viewModel.user.value} hfdfggf")
 
-        Log.d("Network","${viewModel.user.value} hfdfggf")
-        viewModel.user.observe(this, Observer { changeActivity(viewModel.loginDetails.value?.message.toString())})
+      viewModel.loginStatus.observe(this, Observer {
+          if(viewModel.loginStatus.value==ApiStatus.SUCCESS)
+          {
+              checkUserData()
+          }
+          if(viewModel.loginStatus.value==ApiStatus.LOADING)
+          {
+              binding.btnNext.visibility=View.INVISIBLE
+          }
+          if(viewModel.loginStatus.value==ApiStatus.ERROR) {
+              binding.btnNext.visibility = View.VISIBLE
+              Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
+          }
+
+
+      })
+
 
     }
 
@@ -56,18 +75,33 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
-        if(message=="Team not found") {
-            Toast.makeText(this, viewModel.loginDetails.value?.message.toString() , Toast.LENGTH_SHORT).show()
-        }
+
     }
 
+    private fun checkUserData()
+    {
+        viewModel.userStatus.observe(this, Observer {
+            if ( viewModel.userStatus.value==ApiStatus.SUCCESS) {
+                changeActivity(viewModel.loginDetails.value?.message.toString())
+
+
+            }
+            if ( viewModel.userStatus.value == ApiStatus.LOADING ) {
+                binding.btnNext.visibility = View.INVISIBLE
+            }
+            if ( viewModel.userStatus.value == ApiStatus.ERROR) {
+                Toast.makeText(this,"UNABLE TO FETCH DATA",Toast.LENGTH_LONG).show()
+                binding.btnNext.visibility=View.VISIBLE
+            }
+
+        })
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.btnNext.setOnClickListener {
-
             initializeViewModel()
         }
     }
