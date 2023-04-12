@@ -1,8 +1,6 @@
 package com.vishal2376.treasurehint.util
 
 object Constants {
-    var Email:String? = null
-    var Password:String? = null
     var LocationCount: Int = 1
     val Locations = arrayOf(2, 1, 4, 5, 3)
     val Checkpoints = Locations.filter { it != 1 }.toTypedArray()
