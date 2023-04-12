@@ -49,12 +49,11 @@ class LeaderboardActivity : AppCompatActivity() {
                   binding.tvYourName.text = user.team.name
                   binding.tvYourScore.text = user.team.score.toString()
                   Log.d("Network","${user.team}")
-                  val index = list!!.indexOfFirst{
+                  val index= list!!.indexOfFirst{
                       it.name == user.team.name
                   }
-                  Log.i("adi", "$index")
 
-                  binding.tvYourPosition.text = index.toString()
+                  binding.tvYourPosition.text = (index+1).toString()
 
 
                   if (size != null) {
@@ -83,7 +82,6 @@ class LeaderboardActivity : AppCompatActivity() {
                   if (size != null) {
                       if(size>3){
                           binding.rvLeaderboard.adapter = LeaderboardAdapter(list)
-
                       }
                       else{
                           binding.rvLeaderboard.visibility = View.GONE
