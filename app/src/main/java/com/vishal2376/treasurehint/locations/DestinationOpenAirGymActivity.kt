@@ -2,18 +2,21 @@ package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.vishal2376.treasurehint.LeaderboardActivity
 import com.vishal2376.treasurehint.ProgressActivity
 import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityDestinationOpenAirGymBinding
 import com.vishal2376.treasurehint.models.LoginData
+import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
@@ -68,7 +71,10 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
                             LocationCount++
                         }
                         else {
+                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
+                            Log.d("Satvik","${viewModel.user.value}")
                             val intent = Intent(this, LeaderboardActivity::class.java)
+                            intent.putExtra("UserJson",userJson)
                             startActivity(intent)
                         }
                     }

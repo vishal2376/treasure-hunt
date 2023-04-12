@@ -8,12 +8,14 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.gson.Gson
 import com.vishal2376.treasurehint.LeaderboardActivity
 import com.vishal2376.treasurehint.ProgressActivity
 import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityDestinationSacactivityBinding
 import com.vishal2376.treasurehint.models.LoginData
+import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
@@ -67,7 +69,9 @@ class DestinationSACActivity : AppCompatActivity() {
                             LocationCount++
                         }
                         else {
+                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
                             val intent = Intent(this, LeaderboardActivity::class.java)
+                            intent.putExtra("UserJson",userJson)
                             startActivity(intent)
                         }
                     }
