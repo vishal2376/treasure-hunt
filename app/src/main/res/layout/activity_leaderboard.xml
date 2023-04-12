@@ -14,6 +14,7 @@
         android:fontFamily="@font/lacasa"
         android:letterSpacing="0.05"
         android:text="@string/leaderboard"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorRedDark"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
