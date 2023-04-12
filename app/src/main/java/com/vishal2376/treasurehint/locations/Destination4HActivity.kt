@@ -29,6 +29,7 @@ class Destination4HActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestination4HactivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        var hintCheck=true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Email!!, Password!!))
         binding.tvCheckpoint.setOnClickListener {
@@ -36,29 +37,36 @@ class Destination4HActivity : AppCompatActivity() {
             startActivity(intent)
         }
         binding.btnHint4h.setOnClickListener {
-
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Do you want to buy hint")
-            builder.setMessage("This hint will cost 100 coins")
-
-            builder.setPositiveButton("Yes") { dialog, which ->
-                //Alert which will show the hint after buying
-
+            if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Hint")
-                builder.setMessage("Here we will display hint")
+                builder.setTitle("Do you want to buy hint")
+                builder.setMessage("This hint will cost 100 coins")
+
+                builder.setPositiveButton("Yes") { dialog, which ->
+                    //Alert which will show the hint after buying
+
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Hint")
+                    builder.setMessage("Here we will display hint")
+
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                        builder.setCancelable(true)
+                        hintCheck=false
+                    }
+                    builder.show()
+                }
+
 
                 builder.setNegativeButton(android.R.string.no) { dialog, which ->
                     builder.setCancelable(true)
                 }
+
                 builder.show()
             }
-
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                builder.setCancelable(true)
+            else
+            {
+                Toast.makeText(this,"Hint Used",Toast.LENGTH_SHORT).show()
             }
-
-            builder.show()
         }
 
         binding.btnNext.setOnClickListener {

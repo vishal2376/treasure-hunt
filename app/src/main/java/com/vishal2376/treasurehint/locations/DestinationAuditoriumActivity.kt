@@ -28,108 +28,139 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationAuditoriumBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-//        viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
-        viewModel.getUserData(LoginData("TeamA12345@treasurehunt.gdsc","women00"))
+        viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
+        viewModel.getUserData(LoginData("TeamA12345@treasurehunt.gdsc", "women00"))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
-        binding.btnHintAudi.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Do you want to buy hint")
-            builder.setMessage("This hint will cost 100 coins")
-
-            builder.setPositiveButton("Yes") { dialog, which ->
-               //Alert which will show the hint after buying
-
+        binding.btnHintAudi.setOnClickListener {
+            if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Hint")
-                builder.setMessage("Here we will display hint")
+                builder.setTitle("Do you want to buy hint")
+                builder.setMessage("This hint will cost 100 coins")
+
+                builder.setPositiveButton("Yes") { dialog, which ->
+                    //Alert which will show the hint after buying
+
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Hint")
+                    builder.setMessage("Here we will display hint")
+
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                        builder.setCancelable(true)
+                        hintCheck = false
+                    }
+                    builder.show()
+                }
+
 
                 builder.setNegativeButton(android.R.string.no) { dialog, which ->
                     builder.setCancelable(true)
                 }
+
                 builder.show()
+            } else {
+                Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT)
             }
-
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                builder.setCancelable(true)
-            }
-
-            builder.show()
         }
+        binding.btnVerifyKey.setOnClickListener {
+            viewModel.userStatus.observe(this, Observer {
+                when (viewModel.userStatus.value) {
+                    ApiStatus.SUCCESS -> {
+                        val sercretKey1 = binding.editSecretKey.text.toString()
+                        if ((sercretKey1 == viewModel.user.value?.team?.helpers?.morseCode.toString()) || true) {
+                            binding.editSecretPassword.visibility = View.VISIBLE
+                        }
+                    }
+                    else -> {
+                        Toast.makeText(this, "Data not fetched Yet", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            })
+        }
+
 
         binding.btnNext.setOnClickListener {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
-                    ApiStatus.SUCCESS-> {
+                    ApiStatus.SUCCESS -> {
                         if (LocationCount <= 5) {
                             val location = Locations[LocationCount - 1]
                             NextLocation(location)
                             LocationCount++
-                        }
-                        else {
-                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
+                        } else {
+                            val userJson =
+                                Gson().toJson(viewModel.user.value, User::class.java)
                             val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson",userJson)
+                            intent.putExtra("UserJson", userJson)
                             startActivity(intent)
                         }
                     }
-                    ApiStatus.LOADING->
-                    {
-                        binding.btnNext.visibility= View.GONE
+                    ApiStatus.LOADING -> {
+                        binding.btnNext.visibility = View.GONE
                     }
-                    ApiStatus.ERROR->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    ApiStatus.ERROR -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(
+                            this,
+                            "Can't go to next Activity",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
-                    else->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    else -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(
+                            this,
+                            "Can't go to next Activity",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
 
             })
-    }}
-
-    private fun NextLocation(location: Int) {
-        when (location) {
-            1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
-                startActivity(intent)
-            }
-
-            2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
-                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
-                startActivity(intent)
-            }
-
-            5 -> {
-                val intent = Intent(this, DestinationSACActivity::class.java)
-                startActivity(intent)
-            }
-
-            else -> {
-                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
-            }
         }
     }
-    override fun onBackPressed() {
+
+                    private fun NextLocation(location: Int) {
+                when (location) {
+                    1 -> {
+                        val intent = Intent(this, Destination4HActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    2 -> {
+                        val intent = Intent(this, DestinationAuditoriumActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    3 -> {
+                        val intent = Intent(this, DestinationGroundActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    4 -> {
+                        val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    5 -> {
+                        val intent = Intent(this, DestinationSACActivity::class.java)
+                        startActivity(intent)
+                    }
+
+                    else -> {
+                        Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT)
+                            .show()
+                    }
+                }
+            }
+
+                    override fun onBackPressed() {
+
+            }
+
 
     }
-
-}

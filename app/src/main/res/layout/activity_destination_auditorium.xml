@@ -112,7 +112,7 @@
                     android:fontFamily="@font/roboto"
                     android:paddingStart="30dp"
                     android:text="@string/dump"
-                    android:textColor="@color/white"
+                    android:textColor="@color/colorSkin"
                     android:textSize="18sp" />
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/editSecretkey"
@@ -164,6 +164,7 @@
                     android:layout_marginStart="30dp"
                     android:textColorHint="@color/colorSkin"
                     android:background="@color/colorRedLight"
+                    app:hintTextColor="@color/colorSkin"
                     android:hint="Password">
 
                     <com.google.android.material.textfield.TextInputEditText
