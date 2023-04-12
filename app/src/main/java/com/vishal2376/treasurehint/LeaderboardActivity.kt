@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -15,7 +14,6 @@ import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.adapters.LeaderboardAdapter
 import com.vishal2376.treasurehint.databinding.ActivityLeaderboardBinding
 import com.vishal2376.treasurehint.models.LeaderboardModel
-import com.vishal2376.treasurehint.models.User
 
 class LeaderboardActivity : AppCompatActivity() {
     private var _binding: ActivityLeaderboardBinding? = null

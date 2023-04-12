@@ -4,7 +4,6 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.vishal2376.treasurehint.models.User
 import androidx.lifecycle.viewModelScope
 import com.vishal2376.treasurehint.models.LeaderBoard
 import com.vishal2376.treasurehint.models.LoginData

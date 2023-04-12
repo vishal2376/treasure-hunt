@@ -1,14 +1,12 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.vishal2376.treasurehint.LeaderboardActivity
 import com.vishal2376.treasurehint.ProgressActivity
@@ -16,8 +14,6 @@ import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityDestination4HactivityBinding
 import com.vishal2376.treasurehint.models.LoginData
-import com.vishal2376.treasurehint.models.User
-import com.vishal2376.treasurehint.util.Constants
 import com.vishal2376.treasurehint.util.Constants.Email
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
