@@ -3,6 +3,7 @@ package com.vishal2376.treasurehint
 import android.content.Intent
 import android.opengl.Visibility
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -18,6 +19,8 @@ import com.vishal2376.treasurehint.databinding.ActivityMainBinding
 import com.vishal2376.treasurehint.models.LoginData
 import com.vishal2376.treasurehint.models.LoginDetails
 import com.vishal2376.treasurehint.network.NetworkApiService
+import com.vishal2376.treasurehint.util.Constants
+import com.vishal2376.treasurehint.util.Constants.Password
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -90,6 +93,8 @@ class MainActivity : AppCompatActivity() {
     private fun checkUserData()
     {
         viewModel.userStatus.observe(this, Observer {
+            Constants.Email = binding.editEmail.text.toString()
+            Constants.Password =binding.editPassword.text.toString()
             if ( viewModel.userStatus.value==ApiStatus.SUCCESS) {
                 changeActivity(viewModel.loginDetails.value?.message.toString())
 
