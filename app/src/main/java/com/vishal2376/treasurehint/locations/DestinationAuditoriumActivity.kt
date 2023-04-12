@@ -27,6 +27,11 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        binding.btnVerifyKey.setOnClickListener{
+            //TODO verify key from database
+
+            binding.editSecretKey.text
+        }
         var hintCheck=true
         binding.btnHintAudi.setOnClickListener{
             if(hintCheck)
@@ -68,7 +73,8 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 NextLocation(location)
                 LocationCount++
             } else {
-                val intent = Intent(this, LeaderboardActivity::class.java)
+                val intent = Intent(this, DestinationSACActivity::class.java)
+                intent.putExtra("UserJson",userJson)
                 startActivity(intent)
             }
         }

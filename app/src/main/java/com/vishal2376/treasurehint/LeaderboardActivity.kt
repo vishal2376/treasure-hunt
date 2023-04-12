@@ -27,6 +27,8 @@ class LeaderboardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val userJson=intent.getStringExtra("UserJson")
+        val user=Gson().fromJson(userJson,User::class.java)
         val viewModel=ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getLeaderBoard()
 
@@ -36,6 +38,23 @@ class LeaderboardActivity : AppCompatActivity() {
             val list=viewModel.leaderBoard.value?.teams?.sortedByDescending {it.score}
             Log.i("adi ", "size is ${list?.size} ")
             val size = list?.size
+            binding.tvYourTeam.text = user.team.name
+            binding.tvYourScore.text = user.team.score.toString()
+            val index = list!!.indexOfFirst{
+                it.name == user.team.name
+            }
+            Log.i("adi", "$index")
+
+            binding.tvYourPosition.text = index.toString()
+
+
+//            for(i in 0 until size!!){
+//                var index =0
+//                if(list[i].name == user.team.name){
+//                   index = i+1
+//                }
+//            }
+
             if (size != null) {
                 when (size) {
                     1 -> {
