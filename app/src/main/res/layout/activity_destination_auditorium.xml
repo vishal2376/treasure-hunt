@@ -128,7 +128,7 @@
                     app:hintTextColor="@color/colorSkin">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editSecret"
+                        android:id="@+id/editSecretKey"
                         android:layout_width="match_parent"
                         android:textColorHighlight="@color/white"
                         android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                 </com.google.android.material.textfield.TextInputLayout>
 
                 <Button
-                    android:id="@+id/btnVerify"
+                    android:id="@+id/btnVerifyKey"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="10dp"
