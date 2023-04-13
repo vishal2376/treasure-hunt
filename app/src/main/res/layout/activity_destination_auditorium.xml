@@ -236,7 +236,7 @@
                         android:backgroundTint="@color/colorSkin"
                         android:paddingHorizontal="30dp"
                         android:paddingVertical="10dp"
-                        android:text="First Image"
+                        android:text="Clue 1"
                         android:textColor="@color/colorRedLight"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
@@ -252,7 +252,7 @@
                         android:backgroundTint="@color/colorSkin"
                         android:paddingHorizontal="30dp"
                         android:paddingVertical="10dp"
-                        android:text="Second Image"
+                        android:text="Clue 2"
                         android:textColor="@color/colorRedLight"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent" />
