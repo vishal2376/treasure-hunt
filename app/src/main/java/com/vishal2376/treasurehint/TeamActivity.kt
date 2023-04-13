@@ -41,8 +41,7 @@ class TeamActivity : AppCompatActivity() {
                 val location = Locations[LocationCount - 1]
                 NextLocation(location)
                 LocationCount++
-            } else {
-                val intent = Intent(this, LeaderboardActivity::class.java)
+            } else {                val intent = Intent(this, LeaderboardActivity::class.java)
                 startActivity(intent)
             }
         }
