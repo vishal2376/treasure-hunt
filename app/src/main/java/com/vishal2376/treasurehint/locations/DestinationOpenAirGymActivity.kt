@@ -43,6 +43,25 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        viewModel.userStatus.observe(
+            this,
+            Observer {
+                when(viewModel.userStatus.value){
+                    ApiStatus.SUCCESS-> {
+                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                    }
+                    ApiStatus.LOADING->{
+                        binding.tvCoin.text=""
+                    }
+                    ApiStatus.ERROR->{
+                        binding.tvCoin.text=""
+
+                    }
+                    else->
+                    {}
+                }
+            }
+        )
 
         binding.btnHintGym.setOnClickListener {
             if (hintCheck) {
