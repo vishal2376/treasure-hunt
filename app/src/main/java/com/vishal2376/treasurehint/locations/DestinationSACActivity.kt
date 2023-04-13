@@ -94,18 +94,25 @@ class DestinationSACActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
+            viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
+
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
-                        if (LocationCount <= 5) {
-                            val location = Locations[LocationCount - 1]
-                            NextLocation(location)
-                            LocationCount++
-                        } else {
-                            val userJson = Gson().toJson(viewModel.user.value, User::class.java)
-                            val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson", userJson)
-                            startActivity(intent)
+                        if (viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.cleared == true) {
+                            if (LocationCount <= 5) {
+                                val location = Locations[LocationCount - 1]
+                                NextLocation(location)
+                                LocationCount++
+                            } else {
+                                val userJson = Gson().toJson(viewModel.user.value, User::class.java)
+                                val intent = Intent(this, LeaderboardActivity::class.java)
+                                intent.putExtra("UserJson", userJson)
+                                startActivity(intent)
+                            }
+                        }
+                        else{
+                            Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
                     ApiStatus.LOADING -> {
@@ -129,30 +136,30 @@ class DestinationSACActivity : AppCompatActivity() {
 
     }
 
-    private fun NextLocation(location: Int) {
+    fun NextLocation(location: Int) {
         when (location) {
             1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
+                val intent = Intent(this, DestinationSACActivity::class.java)
                 startActivity(intent)
             }
 
             2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
                 val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
                 startActivity(intent)
             }
 
+            3 -> {
+                val intent = Intent(this, Destination4HActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
             5 -> {
-                val intent = Intent(this, DestinationSACActivity::class.java)
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
                 startActivity(intent)
             }
 
@@ -160,5 +167,4 @@ class DestinationSACActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
             }
         }
-    }
-}
+    }}

@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
                 binding.editPassword.text.toString()
             )
         )
-        Log.d("Network", "${viewModel.user.value} hfdfggf")
+
 
         viewModel.loginStatus.observe(this, Observer {
             if (viewModel.loginStatus.value == ApiStatus.SUCCESS) {
@@ -53,6 +53,7 @@ class MainActivity : AppCompatActivity() {
                 hidePB()
                 binding.btnNext.visibility = View.VISIBLE
                 Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
+                Log.d("Network", "${viewModel.user.value} hfdfggf")
             }
 
 
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun changeActivity(message: String?) {
-        if (message == "Login success") {
+        if (viewModel.user.value?.success==true) {
             val gson = Gson()
             jsonString = gson.toJson(viewModel.user.value)
             val intent = Intent(this, TeamActivity::class.java)

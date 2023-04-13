@@ -1,7 +1,9 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
+import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -92,18 +94,29 @@ class Destination4HActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
+            viewModel.getUserData(LoginData(Email!!, Password!!))
             viewModel.userStatus.observe(this, Observer {
+                Log.e("@@@", Locations[LocationCount-1].toString())
+                Log.e("@@@@", LocationCount.toString())
+
                 when (viewModel.userStatus.value) {
+
                     ApiStatus.SUCCESS -> {
-                        if (LocationCount <= 5) {
-                            val location = Locations[LocationCount - 1]
-                            NextLocation(location)
-                            LocationCount++
-                        } else {
-                            val userJson = Gson().toJson(viewModel.user.value, User::class.java)
-                            val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson", userJson)
-                            startActivity(intent)
+
+                        if (viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.cleared == true) {
+                            if (LocationCount <= 5) {
+                                val location = Locations[LocationCount - 1]
+                                NextLocation(location)
+                                LocationCount++
+                            } else {
+                                val userJson = Gson().toJson(viewModel.user.value, User::class.java)
+                                val intent = Intent(this, LeaderboardActivity::class.java)
+                                intent.putExtra("UserJson", userJson)
+                                startActivity(intent)
+                            }
+                        }
+                        else{
+                            Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
                     ApiStatus.LOADING -> {
@@ -129,27 +142,27 @@ class Destination4HActivity : AppCompatActivity() {
     fun NextLocation(location: Int) {
         when (location) {
             1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
+                val intent = Intent(this, DestinationSACActivity::class.java)
                 startActivity(intent)
             }
 
             2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
                 val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
                 startActivity(intent)
             }
 
+            3 -> {
+                val intent = Intent(this, Destination4HActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
             5 -> {
-                val intent = Intent(this, DestinationSACActivity::class.java)
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
                 startActivity(intent)
             }
 
