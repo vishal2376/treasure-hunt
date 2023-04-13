@@ -10,6 +10,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.vishal2376.treasurehint.LeaderboardActivity
@@ -38,35 +39,18 @@ class Destination4HActivity : AppCompatActivity() {
 
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        viewModel.getUserData(LoginData(Email!!, Password!!))
+         viewModel.getUserData(LoginData(Email!!, Password!!))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
-        viewModel.userStatus.observe(
-            this,
-            Observer {
-                when(viewModel.userStatus.value){
-                    ApiStatus.SUCCESS-> {
-                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                    }
-                        ApiStatus.LOADING->{
-                            binding.tvCoin.text=""
-                        }
-                    ApiStatus.ERROR->{
-                        binding.tvCoin.text=""
+        updateCoins(viewModel)
 
-                    }
-                    else->
-                    {}
-                }
-            }
-            )
         binding.btnHint4h.setOnClickListener {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
-                builder.setMessage("This hint will cost 100 coins")
+                builder.setMessage("This hint will cost 50 coins")
 
                 builder.setPositiveButton("Yes") { dialog, which ->
                     //Alert which will show the hint after buying
@@ -80,6 +64,7 @@ class Destination4HActivity : AppCompatActivity() {
                         hintCheck = false
                     }
                     builder.show()
+                    viewModel.getHint(LoginData(Email!!, Password!!))
                 }
 
 
@@ -136,6 +121,28 @@ class Destination4HActivity : AppCompatActivity() {
 
             )
         }
+
+
+    }
+    fun updateCoins(viewModel: UserViewModel) {
+        viewModel.userStatus.observe(
+            this,
+            Observer {
+                when (viewModel.userStatus.value) {
+                    ApiStatus.SUCCESS -> {
+                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                    }
+                    ApiStatus.LOADING -> {
+                        binding.tvCoin.text = ""
+                    }
+                    ApiStatus.ERROR -> {
+                        binding.tvCoin.text = ""
+
+                    }
+                    else -> {}
+                }
+            }
+        )
     }
 
 

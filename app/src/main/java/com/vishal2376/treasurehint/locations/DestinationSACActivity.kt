@@ -2,6 +2,8 @@ package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Email
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -18,8 +20,10 @@ import com.vishal2376.treasurehint.databinding.ActivityDestinationSacactivityBin
 import com.vishal2376.treasurehint.models.LoginData
 import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants
+import com.vishal2376.treasurehint.util.Constants.Email
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
+import com.vishal2376.treasurehint.util.Constants.Password
 
 class DestinationSACActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationSacactivityBinding? = null
@@ -64,21 +68,26 @@ class DestinationSACActivity : AppCompatActivity() {
         )
         binding.btnHintSac.setOnClickListener {
             if (hintCheck) {
+
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
-                builder.setMessage("This hint will cost 100 coins")
+                builder.setMessage("This hint will cost 50 coins")
 
                 builder.setPositiveButton("Yes") { dialog, which ->
                     //Alert which will show the hint after buying
+                    viewModel.getUserData(LoginData(Email!!, Password!!))
 
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Hint")
-                    builder.setMessage("Here we will display hint")
+                    builder.setMessage(" ")
+
+
 
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
                         builder.setCancelable(true)
                         hintCheck = false
                     }
+                    viewModel.getHint(LoginData(Constants.Email!!, Constants.Password!!))
                     builder.show()
                 }
 

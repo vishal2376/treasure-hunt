@@ -18,8 +18,10 @@ import com.vishal2376.treasurehint.databinding.ActivityDestinationGroundBinding
 import com.vishal2376.treasurehint.models.LoginData
 import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants
+import com.vishal2376.treasurehint.util.Constants.Email
 import com.vishal2376.treasurehint.util.Constants.LocationCount
 import com.vishal2376.treasurehint.util.Constants.Locations
+import com.vishal2376.treasurehint.util.Constants.Password
 
 class DestinationGroundActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationGroundBinding? = null
@@ -37,7 +39,7 @@ class DestinationGroundActivity : AppCompatActivity() {
 
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-        viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
+        viewModel.getUserData(LoginData(Email!!, Password!!))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
@@ -65,7 +67,7 @@ class DestinationGroundActivity : AppCompatActivity() {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
-                builder.setMessage("This hint will cost 100 coins")
+                builder.setMessage("This hint will cost 50 coins")
 
                 builder.setPositiveButton("Yes") { dialog, which ->
                     //Alert which will show the hint after buying
@@ -78,6 +80,8 @@ class DestinationGroundActivity : AppCompatActivity() {
                         builder.setCancelable(true)
                         hintCheck = false
                     }
+                    viewModel.getHint(LoginData(Constants.Email!!, Constants.Password!!))
+
                     builder.show()
                 }
 

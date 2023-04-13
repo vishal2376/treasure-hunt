@@ -48,12 +48,12 @@ class TeamActivity : AppCompatActivity() {
 
         }
     }
-
+//TODO
     fun isCurrentTimeEqualTo1PM(): Boolean {
         val currentTime = Calendar.getInstance()
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
         val minute = currentTime.get(Calendar.MINUTE)
-        return hour == 13 && minute == 0
+        return hour >= 2 && minute >= 0
     }
 
 

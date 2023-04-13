@@ -1,7 +1,6 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
-import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -27,8 +26,8 @@ import com.vishal2376.treasurehint.util.Constants.Locations
 class DestinationAuditoriumActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationAuditoriumBinding? = null
     private val binding get() = _binding!!
-    private var link1:String? = null
-    private var link2:String? = null
+    private var link12: String? = null
+    private var link2: String? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,16 +43,37 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
-        viewModel.getUserData(LoginData("TeamA12345@treasurehunt.gdsc", "women00"))
+
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        viewModel.userStatus.observe(
+            this,
+            Observer {
+
+                when (viewModel.userStatus.value) {
+                    ApiStatus.SUCCESS -> {
+
+                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                    }
+                    ApiStatus.LOADING -> {
+                        binding.tvCoin.text = ""
+                    }
+                    ApiStatus.ERROR -> {
+                        binding.tvCoin.text = ""
+
+                    }
+                    else -> {}
+                }
+            }
+        )
+
         binding.btnHintAudi.setOnClickListener {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
-                builder.setMessage("This hint will cost 100 coins")
+                builder.setMessage("This hint will cost 50 coins")
 
                 builder.setPositiveButton("Yes") { dialog, which ->
                     //Alert which will show the hint after buying
@@ -66,6 +86,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                         builder.setCancelable(true)
                         hintCheck = false
                     }
+                    viewModel.getHint(LoginData(Constants.Email!!, Constants.Password!!))
                     builder.show()
                 }
 
@@ -79,61 +100,49 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT)
             }
         }
-        viewModel.userStatus.observe(
-            this,
-            Observer {
-                when(viewModel.userStatus.value){
-                    ApiStatus.SUCCESS-> {
-                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                    }
-                    ApiStatus.LOADING->{
-                        binding.tvCoin.text=""
-                    }
-                    ApiStatus.ERROR->{
-                        binding.tvCoin.text=""
-
-                    }
-                    else->
-                    {}
-                }
-            }
-        )
         binding.btnGetAudio.setOnClickListener {
-            viewModel.userStatus.observe(this, Observer {
-                when (viewModel.userStatus.value) {
-                    ApiStatus.SUCCESS -> {
-                        val sercretKey1 = binding.editSecretKey.text.toString()
-                        //TODO remove true
-                        if ((sercretKey1 == viewModel.user.value?.team?.helpers?.puzzleCode.toString()) || true) {
-                            binding.llSecretKey.visibility =View.GONE
-                            binding.llPassword.visibility = View.VISIBLE
-                            val audioLink  = viewModel.user.value?.team?.helpers?.stenographyCode.toString()
-                            val i = Intent(Intent.ACTION_VIEW, Uri.parse(audioLink))
-                            startActivity(i)
 
-                        }
-                    }
-                    else -> {
-                        Toast.makeText(this, "Data not fetched Yet", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            })
+            val sercretKey1 = binding.editSecretKey.text.toString()
+            //TODO remove true
+            if ((sercretKey1 == viewModel.user.value?.team?.helpers?.puzzleCode.toString())) {
+                binding.llSecretKey.visibility = View.GONE
+                binding.llPassword.visibility = View.VISIBLE
+                val audioLink =
+                    viewModel.user.value?.team?.helpers?.stenographyCode.toString()
+                val i = Intent(Intent.ACTION_VIEW, Uri.parse(audioLink))
+                startActivity(i)
+
+            } else {
+                Toast.makeText(this, "Wrong code", Toast.LENGTH_SHORT).show()
+            }
+
+
+
+
         }
         binding.btnVerifyMorse.setOnClickListener {
-            if(binding.editMorse.text.toString() == viewModel.user.value?.team?.helpers?.morseCode.toString() || true){
-                link1 = viewModel.user.value?.team?.helpers?.imageLink
-                link2 = viewModel.user.value?.team?.helpers?.copy
+            if (binding.editMorse.text.toString() == viewModel.user.value?.team?.helpers?.morseCode.toString()) {
+                link12 = viewModel.user.value?.team?.helpers?.imageLink.toString()
+                link2 = viewModel.user.value?.team?.helpers?.copy.toString()
                 binding.llPassword.visibility = View.GONE
                 binding.llLinkButtons.visibility = View.VISIBLE
 
+            } else {
+                Toast.makeText(this, "Wrong code", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnLink1.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
-            startActivity(i)
+            try {
+                startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link12?.trim())))
+
+            }
+            catch (e:java.lang.Exception)
+            {
+                Log.d("Errors","${e.message}")
+            }
         }
         binding.btnLink2.setOnClickListener {
-            val i = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(link2?.trim()))
             startActivity(i)
         }
 
@@ -156,9 +165,9 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                                 intent.putExtra("UserJson", userJson)
                                 startActivity(intent)
                             }
-                        }else
-                        {
+                        } else {
                             Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
+                            binding.btnNext.visibility = View.VISIBLE
                         }
                     }
 

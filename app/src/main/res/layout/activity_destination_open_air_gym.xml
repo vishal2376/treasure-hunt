@@ -8,6 +8,7 @@
     tools:context=".locations.DestinationOpenAirGymActivity">
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tvCheckpoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

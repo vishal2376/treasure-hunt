@@ -67,7 +67,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
-                builder.setMessage("This hint will cost 100 coins")
+                builder.setMessage("This hint will cost 50 coins")
 
                 builder.setPositiveButton("Yes") { dialog, which ->
                     //Alert which will show the hint after buying
@@ -80,6 +80,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
                         builder.setCancelable(true)
                         hintCheck = false
                     }
+                    viewModel.getHint(LoginData(Constants.Email!!, Constants.Password!!))
                     builder.show()
                 }
 

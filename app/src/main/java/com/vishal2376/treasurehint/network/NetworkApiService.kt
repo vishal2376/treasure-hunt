@@ -7,10 +7,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.converter.moshi.MoshiConverterFactory
-import retrofit2.http.Body
-import retrofit2.http.Header
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 private val baseUrl="https://gdsc-treasure-hunt.vercel.app/"
 //private val moshi= Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
@@ -23,6 +20,8 @@ interface NetworkApiService {
 suspend fun getUser(@Body loginData:LoginData): User?
 @POST("api/team/all")
 suspend fun getListUsers():LeaderBoard?
+@PUT("api/team/useHint")
+suspend fun useHint(@Body loginData:LoginData)
 @Headers("Content-Type: application/json")
 @POST("api/team/login")
 suspend fun getLoginDetails(@Body loginData: LoginData):LoginDetails?
