@@ -37,14 +37,10 @@ class TeamActivity : AppCompatActivity() {
 
 //        dateSetter(user.team.checkpoints[0].startTime)
         binding.btnStart.setOnClickListener {
-            if (LocationCount <= 5) {
-                val location = Locations[LocationCount - 1]
-                NextLocation(location)
-                LocationCount++
-            } else {
-                val intent = Intent(this, LeaderboardActivity::class.java)
+
+                val intent = Intent(this, DestinationSPActivity::class.java)
                 startActivity(intent)
-            }
+
         }
     }
 
@@ -55,41 +51,5 @@ class TeamActivity : AppCompatActivity() {
         binding.tvTimeRemaining.text = "START TIME : ${dtf.format(odt)}"
     }
 
-    private fun NextLocation(location: Int) {
-        when (location) {
-            1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
-                intent.putExtra("UserJson", userJson)
-                startActivity(intent)
-            }
 
-            2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                intent.putExtra("UserJson", userJson)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                intent.putExtra("UserJson", userJson)
-                startActivity(intent)
-            }
-
-            4 -> {
-                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
-                intent.putExtra("UserJson", userJson)
-                startActivity(intent)
-            }
-
-            5 -> {
-                val intent = Intent(this, DestinationSACActivity::class.java)
-                intent.putExtra("UserJson", userJson)
-                startActivity(intent)
-            }
-
-            else -> {
-                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
-            }
-        }
-    }
 }
