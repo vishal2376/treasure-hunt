@@ -73,6 +73,25 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT)
             }
         }
+        viewModel.userStatus.observe(
+            this,
+            Observer {
+                when(viewModel.userStatus.value){
+                    ApiStatus.SUCCESS-> {
+                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                    }
+                    ApiStatus.LOADING->{
+                        binding.tvCoin.text=""
+                    }
+                    ApiStatus.ERROR->{
+                        binding.tvCoin.text=""
+
+                    }
+                    else->
+                    {}
+                }
+            }
+        )
         binding.btnVerifyKey.setOnClickListener {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
