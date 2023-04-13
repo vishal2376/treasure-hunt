@@ -92,10 +92,11 @@ class Destination4HActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
-
+            viewModel.getUserData(LoginData(Email!!, Password!!))
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
+                        if(true)
                         if (LocationCount <= 5) {
                             val location = Locations[LocationCount - 1]
                             NextLocation(location)

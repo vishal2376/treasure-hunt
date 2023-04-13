@@ -110,6 +110,9 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                             startActivity(i)
 
                         }
+                        else{
+                            Toast.makeText(this, "Please Enter Correct Details", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     else -> {
                         Toast.makeText(this, "Data not fetched Yet", Toast.LENGTH_SHORT).show()
@@ -124,6 +127,10 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 binding.llPassword.visibility = View.GONE
                 binding.llLinkButtons.visibility = View.VISIBLE
 
+            }
+
+            else{
+                Toast.makeText(this, "Please Enter Correct Details", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnLink1.setOnClickListener {
