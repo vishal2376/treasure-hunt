@@ -92,6 +92,7 @@ class Destination4HActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
+
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {

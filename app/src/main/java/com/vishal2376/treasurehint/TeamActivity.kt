@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.gson.Gson
 import com.vishal2376.treasurehint.databinding.ActivityTeamBinding
+
 import com.vishal2376.treasurehint.locations.*
 import com.vishal2376.treasurehint.models.User
 import com.vishal2376.treasurehint.util.Constants.LocationCount
