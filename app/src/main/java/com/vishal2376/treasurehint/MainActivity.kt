@@ -86,7 +86,8 @@ class MainActivity : AppCompatActivity() {
             Constants.Password = binding.editPassword.text.toString()
 
             if (viewModel.userStatus.value == ApiStatus.SUCCESS) {
-                Log.e("Network123", "adsadad")
+
+
                 val str = viewModel.user.value?.team?.name.toString().slice(5..9)
                 var arr = mutableListOf<Int>()
                 for (i in str) {
