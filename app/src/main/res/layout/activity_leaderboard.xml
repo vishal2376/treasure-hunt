@@ -26,8 +26,8 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
         android:layout_marginTop="20dp"
+        android:gravity="center"
         android:orientation="horizontal"
         android:paddingVertical="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,6 +59,17 @@
                 android:textColor="@color/colorRedDark"
                 android:textSize="22sp" />
 
+            <TextView
+                android:id="@+id/tvSecondScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto"
+                android:text="Score"
+                android:textColor="@color/colorRedDark"
+                android:textSize="18sp" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -85,6 +96,17 @@
                 android:text="1st team"
                 android:textColor="@color/colorRedDark"
                 android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvFirstScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto"
+                android:text="Score"
+                android:textColor="@color/colorRedDark"
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -97,7 +119,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_gravity="center"
-                android:src="@drawable/third"/>
+                android:src="@drawable/third" />
 
             <TextView
                 android:id="@+id/tvThird"
@@ -109,9 +131,88 @@
                 android:text="3rd team"
                 android:textColor="@color/colorRedDark"
                 android:textSize="22sp" />
+
+            <TextView
+                android:id="@+id/tvThirdScore"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="6dp"
+                android:fontFamily="@font/roboto"
+                android:text="Score"
+                android:textColor="@color/colorRedDark"
+                android:textSize="18sp" />
         </LinearLayout>
 
 
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvYourTeam"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto"
+        android:text="Your Rank"
+        android:gravity="center_horizontal"
+        android:textColor="@color/colorRedDark"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="15dp"
+        android:layout_marginVertical="8dp"
+        android:background="@drawable/red_border_bg"
+        android:orientation="horizontal"
+        android:paddingVertical="2dp"
+        app:layout_constraintTop_toBottomOf="@+id/tvYourTeam"
+        tools:layout_editor_absoluteX="15dp">
+
+        <TextView
+            android:id="@+id/tvYourPosition"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="10"
+            android:textColor="@color/colorRedLight"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvYourName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1.5"
+            android:fontFamily="@font/roboto"
+            android:gravity="start"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="Aditya Sood"
+            android:textColor="@color/colorRedLight"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/tvYourScore"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_weight="3"
+            android:fontFamily="@font/roboto"
+            android:gravity="center"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="15dp"
+            android:text="100"
+            android:textColor="@color/colorRedLight"
+            android:textSize="22sp" />
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
@@ -121,11 +222,11 @@
         android:layout_marginBottom="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.5"
-        tools:listitem="@layout/leaderboard_item"/>
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:listitem="@layout/leaderboard_item"
+    />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
