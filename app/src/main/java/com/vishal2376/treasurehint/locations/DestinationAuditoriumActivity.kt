@@ -1,6 +1,7 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -24,6 +25,9 @@ import com.vishal2376.treasurehint.util.Constants.Locations
 class DestinationAuditoriumActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationAuditoriumBinding? = null
     private val binding get() = _binding!!
+    private var link1:String? = null
+    private var link2:String? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -92,13 +96,19 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 }
             }
         )
-        binding.btnVerifyKey.setOnClickListener {
+        binding.btnGetAudio.setOnClickListener {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
                         val sercretKey1 = binding.editSecretKey.text.toString()
-                        if ((sercretKey1 == viewModel.user.value?.team?.helpers?.morseCode.toString()) || true) {
-                            binding.editSecretPassword.visibility = View.VISIBLE
+                        //TODO remove true
+                        if ((sercretKey1 == viewModel.user.value?.team?.helpers?.puzzleCode.toString()) || true) {
+                            binding.llSecretKey.visibility =View.GONE
+                            binding.llPassword.visibility = View.VISIBLE
+                            val audioLink  = viewModel.user.value?.team?.helpers?.stenographyCode.toString()
+                            val i = Intent(Intent.ACTION_VIEW, Uri.parse(audioLink))
+                            startActivity(i)
+
                         }
                     }
                     else -> {
@@ -107,6 +117,24 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                 }
             })
         }
+        binding.btnVerifyMorse.setOnClickListener {
+            if(binding.editMorse.text.toString() == viewModel.user.value?.team?.helpers?.morseCode.toString() || true){
+                link1 = viewModel.user.value?.team?.helpers?.imageLink
+                link2 = viewModel.user.value?.team?.helpers?.copy
+                binding.llPassword.visibility = View.GONE
+                binding.llLinkButtons.visibility = View.VISIBLE
+
+            }
+        }
+        binding.btnLink1.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(link1))
+            startActivity(i)
+        }
+        binding.btnLink2.setOnClickListener {
+            val i = Intent(Intent.ACTION_VIEW, Uri.parse(link2))
+            startActivity(i)
+        }
+
 
 
         binding.btnNext.setOnClickListener {
@@ -183,6 +211,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             }
         }
     }
+
 
     override fun onBackPressed() {
 
