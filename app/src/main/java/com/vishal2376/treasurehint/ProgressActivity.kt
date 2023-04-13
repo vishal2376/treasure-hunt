@@ -24,7 +24,7 @@ class ProgressActivity : AppCompatActivity() {
 
         binding.rvProgress.let {
             it.layoutManager = LinearLayoutManager(this)
-            it.adapter = ProgressAdapter(Constants.Checkpoints)
+            it.adapter = ProgressAdapter(Constants.Checkpoints1)
         }
 
 
