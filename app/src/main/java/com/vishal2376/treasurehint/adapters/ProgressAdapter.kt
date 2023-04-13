@@ -30,7 +30,7 @@ class ProgressAdapter(private val checkpointArray: Array<Int>) :
             holder.locationName.setBackgroundResource(R.drawable.round_box_grey)
         }
 
-        if (LocationNames[checkpointArray[position]] == "4H") {
+        if (LocationNames[checkpointArray[position]] == "MapRoulette") {
             holder.itemView.visibility = View.GONE
         } else {
 

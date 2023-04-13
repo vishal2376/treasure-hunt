@@ -1,6 +1,7 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.SyncStateContract.Constants
@@ -21,6 +22,7 @@ class DestinationSPActivity : AppCompatActivity() {
                 val location = com.vishal2376.treasurehint.util.Constants.Locations[com.vishal2376.treasurehint.util.Constants.LocationCount - 1]
                 NextLocation(location)
                 com.vishal2376.treasurehint.util.Constants.LocationCount++
+
             }
         }
     }
@@ -28,33 +30,33 @@ class DestinationSPActivity : AppCompatActivity() {
     private fun NextLocation(location: Int) {
         when (location) {
             1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
-                startActivity(intent)
-            }
-
-            2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
-                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
-                startActivity(intent)
-            }
-
-            5 -> {
                 val intent = Intent(this, DestinationSACActivity::class.java)
                 startActivity(intent)
             }
 
+            2 -> {
+                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
+                startActivity(intent)
+            }
+
+            3 -> {
+                val intent = Intent(this,Destination4HActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
+            5 -> {
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
+                startActivity(intent)
+            }
+
             else -> {
-                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
-    }
-}
+    }}

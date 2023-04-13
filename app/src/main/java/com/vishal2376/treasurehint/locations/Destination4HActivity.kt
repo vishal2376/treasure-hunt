@@ -2,6 +2,7 @@ package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -92,22 +93,27 @@ class Destination4HActivity : AppCompatActivity() {
         }
 
         binding.btnNext.setOnClickListener {
-            viewModel.getUserData(LoginData(Email!!, Password!!))
+//            viewModel.getUserData(LoginData(Email!!, Password!!))
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
-                        if(true)
-                        if (LocationCount <= 5) {
-                            val location = Locations[LocationCount - 1]
-                            NextLocation(location)
-                            LocationCount++
-                        } else {
-                            val userJson = Gson().toJson(viewModel.user.value, User::class.java)
-                            val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson", userJson)
-                            startActivity(intent)
+                        Log.d("NETWORK12","${viewModel.user.value?.team?.checkpoints?.get(Locations[LocationCount])?.cleared} sdfsdf")
+//                        if (viewModel.user.value?.team?.checkpoints?.get(Locations[LocationCount])?.cleared == true) {
+                            if (LocationCount <= 5) {
+                                val location = Locations[LocationCount - 1]
+                                NextLocation(location)
+                                LocationCount++
+                            } else {
+                                val userJson = Gson().toJson(viewModel.user.value, User::class.java)
+                                val intent = Intent(this, LeaderboardActivity::class.java)
+                                intent.putExtra("UserJson", userJson)
+                                startActivity(intent)
+                            }
                         }
-                    }
+//                        else{
+//                            Toast.makeText(this, "Next Destination not unlocked yet", Toast.LENGTH_SHORT).show()
+//                        }
+//                    }
                     ApiStatus.LOADING -> {
                         binding.btnNext.visibility = View.GONE
                     }
@@ -128,39 +134,39 @@ class Destination4HActivity : AppCompatActivity() {
     }
 
 
-    fun NextLocation(location: Int) {
+    private fun NextLocation(location: Int) {
         when (location) {
             1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
-                startActivity(intent)
-            }
-
-            2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
-                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
-                startActivity(intent)
-            }
-
-            5 -> {
                 val intent = Intent(this, DestinationSACActivity::class.java)
                 startActivity(intent)
             }
 
+            2 -> {
+                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
+                startActivity(intent)
+            }
+
+            3 -> {
+                val intent = Intent(this,Destination4HActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
+            5 -> {
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
+                startActivity(intent)
+            }
+
             else -> {
-                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT)
+                    .show()
             }
         }
     }
-
 
     override fun onBackPressed() {
 
