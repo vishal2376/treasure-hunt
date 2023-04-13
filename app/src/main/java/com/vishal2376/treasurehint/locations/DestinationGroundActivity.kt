@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -28,14 +29,20 @@ class DestinationGroundActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationGroundBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var hintCheck=true
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+        var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
-        binding.btnHintGround.setOnClickListener{
+        binding.btnHintGround.setOnClickListener {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
@@ -50,7 +57,7 @@ class DestinationGroundActivity : AppCompatActivity() {
 
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
                         builder.setCancelable(true)
-                        hintCheck=false
+                        hintCheck = false
                     }
                     builder.show()
                 }
@@ -61,10 +68,8 @@ class DestinationGroundActivity : AppCompatActivity() {
                 }
 
                 builder.show()
-            }
-            else
-            {
-                Toast.makeText(this,"Hint Used",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -77,9 +82,9 @@ class DestinationGroundActivity : AppCompatActivity() {
                             NextLocation(location)
                             LocationCount++
                         } else {
-                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
+                            val userJson = Gson().toJson(viewModel.user.value, User::class.java)
                             val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson",userJson)
+                            intent.putExtra("UserJson", userJson)
                             startActivity(intent)
                         }
                     }
@@ -132,8 +137,8 @@ class DestinationGroundActivity : AppCompatActivity() {
         }
     }
 
-        override fun onBackPressed() {
+    override fun onBackPressed() {
 
-        }
     }
+}
 

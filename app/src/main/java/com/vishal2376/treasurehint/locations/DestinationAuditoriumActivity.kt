@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -28,6 +29,12 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationAuditoriumBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
@@ -124,43 +131,43 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
         }
     }
 
-                    private fun NextLocation(location: Int) {
-                when (location) {
-                    1 -> {
-                        val intent = Intent(this, Destination4HActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    2 -> {
-                        val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    3 -> {
-                        val intent = Intent(this, DestinationGroundActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    4 -> {
-                        val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    5 -> {
-                        val intent = Intent(this, DestinationSACActivity::class.java)
-                        startActivity(intent)
-                    }
-
-                    else -> {
-                        Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+    private fun NextLocation(location: Int) {
+        when (location) {
+            1 -> {
+                val intent = Intent(this, Destination4HActivity::class.java)
+                startActivity(intent)
             }
 
-                    override fun onBackPressed() {
-
+            2 -> {
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
+                startActivity(intent)
             }
 
+            3 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
+                startActivity(intent)
+            }
+
+            5 -> {
+                val intent = Intent(this, DestinationSACActivity::class.java)
+                startActivity(intent)
+            }
+
+            else -> {
+                Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
 
     }
+
+
+}

@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var viewModel: UserViewModel
 
     lateinit var jsonString: String
+
     private fun initializeViewModel() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getLoginDetails(
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
 
                     arr.add(i.toString().toInt())
                 }
-                Constants.Locations=arr
+                Constants.Locations = arr
                 changeActivity(viewModel.loginDetails.value?.message.toString())
 
             }
@@ -115,6 +117,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
 
         binding.btnNext.setOnClickListener {
             initializeViewModel()

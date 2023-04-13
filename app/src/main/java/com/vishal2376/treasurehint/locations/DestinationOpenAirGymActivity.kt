@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -29,7 +30,13 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationOpenAirGymBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var hintCheck=true
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+        var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
         binding.tvCheckpoint.setOnClickListener {
@@ -37,7 +44,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        binding.btnHintGym.setOnClickListener{
+        binding.btnHintGym.setOnClickListener {
             if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
                 builder.setTitle("Do you want to buy hint")
@@ -52,7 +59,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
 
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
                         builder.setCancelable(true)
-                        hintCheck=false
+                        hintCheck = false
                     }
                     builder.show()
                 }
@@ -63,42 +70,36 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
                 }
 
                 builder.show()
-            }
-            else
-            {
-                Toast.makeText(this,"Hint Used",Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT).show()
             }
         }
         binding.btnNext.setOnClickListener {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
-                    ApiStatus.SUCCESS-> {
+                    ApiStatus.SUCCESS -> {
                         if (LocationCount <= 5) {
                             val location = Locations[LocationCount - 1]
                             NextLocation(location)
                             LocationCount++
-                        }
-                        else {
-                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
-                            Log.d("Satvik","${viewModel.user.value}")
+                        } else {
+                            val userJson = Gson().toJson(viewModel.user.value, User::class.java)
+                            Log.d("Satvik", "${viewModel.user.value}")
                             val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson",userJson)
+                            intent.putExtra("UserJson", userJson)
                             startActivity(intent)
                         }
                     }
-                    ApiStatus.LOADING->
-                    {
-                        binding.btnNext.visibility= View.GONE
+                    ApiStatus.LOADING -> {
+                        binding.btnNext.visibility = View.GONE
                     }
-                    ApiStatus.ERROR->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    ApiStatus.ERROR -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(this, "Can't go to next Activity", Toast.LENGTH_SHORT).show()
                     }
-                    else->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    else -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(this, "Can't go to next Activity", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -139,6 +140,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onBackPressed() {
 
     }
