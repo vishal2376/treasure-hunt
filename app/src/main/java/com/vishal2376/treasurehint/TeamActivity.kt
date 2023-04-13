@@ -38,19 +38,24 @@ class TeamActivity : AppCompatActivity() {
 
 //        dateSetter(user.team.checkpoints[0].startTime)
         binding.btnStart.setOnClickListener {
+            if(isCurrentTimeEqualTo1PM()){
+                startActivity(Intent(this@TeamActivity,DestinationSPActivity::class.java))
 
-                val intent = Intent(this, DestinationSPActivity::class.java)
-                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this, "The Hunt will start at 1 pm", Toast.LENGTH_SHORT).show()
+            }
 
         }
     }
 
-    private fun dateSetter(string: String) {
-        var dateString = string;
-        var odt = OffsetDateTime.parse(dateString);
-        var dtf = DateTimeFormatter.ofPattern("h:mm a", Locale.ENGLISH);
-        binding.tvTimeRemaining.text = "START TIME : ${dtf.format(odt)}"
+    fun isCurrentTimeEqualTo1PM(): Boolean {
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = currentTime.get(Calendar.MINUTE)
+        return hour == 13 && minute == 0
     }
+
 
 
 }
