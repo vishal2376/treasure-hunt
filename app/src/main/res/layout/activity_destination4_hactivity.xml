@@ -61,8 +61,10 @@
         android:fontFamily="@font/roboto"
         android:text="@string/reach_4h"
         android:textColor="@color/colorRedDark"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
+        android:textAlignment="center"
+        android:gravity="center"
         app:layout_constraintBottom_toTopOf="@+id/money_heist_character"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
