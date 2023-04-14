@@ -9,9 +9,9 @@
     <color name="white">#FFFFFFFF</color>
 
 
-    <color name="colorRedLight">#D42A41</color>
-    <color name="colorRedDark">#BA042D</color>
-    <color name="colorSkin">#DEC7A0</color>
+    <color name="colorRedLight">#6299FF</color>
+    <color name="colorRedDark">#6294FF</color>
+    <color name="colorSkin">#211A39</color>
     <color name="colorGrey">#818181</color>
 
 </resources>

@@ -9,4 +9,5 @@ data class Team(
     val name: String,
     val registered: Boolean,
     val score: Int
+
 )

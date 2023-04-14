@@ -1,28 +1,20 @@
 package com.vishal2376.treasurehint
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
 import com.google.gson.Gson
 import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.databinding.ActivityMainBinding
 import com.vishal2376.treasurehint.models.LoginData
-import com.vishal2376.treasurehint.models.LoginDetails
-import com.vishal2376.treasurehint.network.NetworkApiService
 import com.vishal2376.treasurehint.util.Constants
-import com.vishal2376.treasurehint.util.Constants.Password
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,14 +23,14 @@ class MainActivity : AppCompatActivity() {
     private val binding get() = _binding!!
     lateinit var viewModel: UserViewModel
 
-    lateinit var jsonString:String
-    private fun initializeViewModel()
-    {
+    lateinit var jsonString: String
+
+    private fun initializeViewModel() {
         viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getLoginDetails(
             LoginData(
-                   binding.editEmail.text.toString(),
-                   binding.editPassword.text.toString()
+                binding.editEmail.text.toString(),
+                binding.editPassword.text.toString()
             )
         )
         viewModel.getUserData(
@@ -47,75 +39,90 @@ class MainActivity : AppCompatActivity() {
                 binding.editPassword.text.toString()
             )
         )
-     Log.d("Network","${viewModel.user.value} hfdfggf")
-
-      viewModel.loginStatus.observe(this, Observer {
-          if(viewModel.loginStatus.value==ApiStatus.SUCCESS)
-          {
-              checkUserData()
-          }
-          if(viewModel.loginStatus.value==ApiStatus.LOADING)
-          {
-              binding.btnNext.visibility=View.GONE
-              showPB()
-          }
-          if(viewModel.loginStatus.value==ApiStatus.ERROR) {
-              hidePB()
-              binding.btnNext.visibility = View.VISIBLE
-              Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
-          }
 
 
-      })
+        viewModel.loginStatus.observe(this, Observer {
+            if (viewModel.loginStatus.value == ApiStatus.SUCCESS) {
+                checkUserData()
+            }
+            if (viewModel.loginStatus.value == ApiStatus.LOADING) {
+                binding.btnNext.visibility = View.GONE
+                showPB()
+            }
+            if (viewModel.loginStatus.value == ApiStatus.ERROR) {
+                hidePB()
+                binding.btnNext.visibility = View.VISIBLE
+                Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
+                Log.d("Network", "${viewModel.user.value} hfdfggf")
+            }
+
+
+        })
 
 
     }
 
-    private fun changeActivity(message:String?) {
-        if (message=="Login success") {
-            val gson=Gson()
-            jsonString=gson.toJson(viewModel.user.value)
+    private fun changeActivity(message: String?) {
+        if (viewModel.user.value?.success==true) {
+            val gson = Gson()
+            jsonString = gson.toJson(viewModel.user.value)
             val intent = Intent(this, TeamActivity::class.java)
-            intent.putExtra("UserJson",jsonString)
+            intent.putExtra("UserJson", jsonString)
             startActivity(intent)
             finish()
         }
 
     }
-    private fun showPB(){
+
+    private fun showPB() {
         binding.pbMain.visibility = View.VISIBLE
     }
-    private fun hidePB(){
+
+    private fun hidePB() {
         binding.pbMain.visibility = View.GONE
 
     }
 
-    private fun checkUserData()
-    {
+    private fun checkUserData() {
         viewModel.userStatus.observe(this, Observer {
             Constants.Email = binding.editEmail.text.toString()
-            Constants.Password =binding.editPassword.text.toString()
-            if ( viewModel.userStatus.value==ApiStatus.SUCCESS) {
+            Constants.Password = binding.editPassword.text.toString()
+
+            if (viewModel.userStatus.value == ApiStatus.SUCCESS) {
+
+
+                val str = viewModel.user.value?.team?.name.toString().slice(5..9)
+                var arr = mutableListOf<Int>()
+                for (i in str) {
+
+                    arr.add(i.toString().toInt())
+                }
+                Constants.Locations = arr
                 changeActivity(viewModel.loginDetails.value?.message.toString())
 
-
             }
-            if ( viewModel.userStatus.value == ApiStatus.LOADING ) {
+            if (viewModel.userStatus.value == ApiStatus.LOADING) {
                 binding.btnNext.visibility = View.GONE
                 showPB()
             }
-            if ( viewModel.userStatus.value == ApiStatus.ERROR) {
+            if (viewModel.userStatus.value == ApiStatus.ERROR) {
                 hidePB()
-                Toast.makeText(this,"UNABLE TO FETCH DATA",Toast.LENGTH_LONG).show()
-                binding.btnNext.visibility=View.VISIBLE
+                Toast.makeText(this, "UNABLE TO FETCH DATA", Toast.LENGTH_LONG).show()
+                binding.btnNext.visibility = View.VISIBLE
             }
 
         })
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
 
         binding.btnNext.setOnClickListener {
             initializeViewModel()

@@ -9,6 +9,7 @@
 
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tvCheckpoint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,10 +43,10 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
+            android:id="@+id/tv_coin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:fontFamily="@font/roboto"
-            android:text="50"
             android:textColor="@color/colorRedDark"
             android:textSize="25sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -60,9 +61,11 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:fontFamily="@font/roboto"
+        android:gravity="center"
         android:text="@string/reach_auditorium"
+        android:textAlignment="center"
         android:textColor="@color/colorRedDark"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/money_heist_character"
         app:layout_constraintEnd_toEndOf="parent"
@@ -97,92 +100,171 @@
             android:text="@string/tasks"
             android:textColor="@color/colorSkin"
             android:textSize="30sp" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="250dp">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingBottom="120dp">
+
+
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:fontFamily="@font/roboto"
                     android:paddingStart="30dp"
-                    android:text="@string/dump"
-                    android:textColor="@color/white"
+                    android:text="@string/content_audi"
+                    android:textColor="@color/colorSkin"
                     android:textSize="18sp" />
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/editSecretkey"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                <LinearLayout
+                    android:id="@+id/llSecretKey"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:hint="Secret key"
-                    android:layout_marginStart="30dp"
-                    android:background="@color/colorRedLight"
-                    android:textColorHint="@color/colorSkin"
-                    app:boxStrokeColor="@color/colorSkin"
-                    app:hintTextColor="@color/colorSkin">
+                    android:orientation="vertical"
+                    >
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/editSecretKey"
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editSecretkey"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:textColorHighlight="@color/white"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:inputType="text"
-                        android:layout_marginEnd="10dp"
-                        android:textColor="@color/colorSkin"
-                        />
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/colorRedLight"
+                        android:hint="Secret key"
+                        android:textColorHint="@color/colorSkin"
+                        app:boxStrokeColor="@color/colorSkin"
+                        app:hintTextColor="@color/colorSkin">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editSecretKey"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="text"
+                            android:textColor="@color/colorSkin"
+                            android:textColorHighlight="@color/white" />
 
-                <Button
-                    android:id="@+id/btnVerifyKey"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
-                    android:layout_gravity="end"
-                    android:layout_marginEnd="100dp"
-                    android:backgroundTint="@color/colorSkin"
-                    android:paddingHorizontal="30dp"
-                    android:paddingVertical="10dp"
-                    android:text="Verify"
-                    android:textColor="@color/colorRedLight"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent" />
-                <com.google.android.material.textfield.TextInputLayout
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnGetAudio"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="100dp"
+                        android:backgroundTint="@color/colorSkin"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:text="Get Audio"
+                        android:textColor="@color/colorRedLight"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+                </LinearLayout>
+
+                <LinearLayout
                     android:visibility="gone"
-                    android:id="@+id/editSecretPassword"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:id="@+id/llPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxStrokeColor="@color/white"
-                    android:layout_marginStart="30dp"
-                    android:textColorHint="@color/colorSkin"
-                    android:background="@color/colorRedLight"
-                    android:hint="Password">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edit22"
+                    android:orientation="vertical"
+                    android:layout_gravity="center">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/editSecretPassword"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/roboto"
-                        android:inputType="textEmailAddress"
-                        android:textColor="@color/colorSkin"
-                        />
+                        android:layout_marginStart="30dp"
+                        android:background="@color/colorRedLight"
+                        android:hint="Enter Password"
+                        android:textColorHint="@color/colorSkin"
+                        android:visibility="visible"
+                        app:boxStrokeColor="@color/white"
+                        app:hintTextColor="@color/colorSkin">
 
-                </com.google.android.material.textfield.TextInputLayout>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/editMorse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/roboto"
+                            android:inputType="textEmailAddress"
+                            android:textColor="@color/colorSkin" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <Button
+                        android:id="@+id/btnVerifyMorse"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="end"
+                        android:layout_marginVertical="10dp"
+                        android:layout_marginEnd="100dp"
+                        android:backgroundTint="@color/colorSkin"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:text="Verify"
+                        android:textColor="@color/colorRedLight"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:visibility="gone"
+                    android:id="@+id/llLinkButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btnLink1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorSkin"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:text="Clue 1"
+                        android:textColor="@color/colorRedLight"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <Button
+                        android:id="@+id/btnLink2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_margin="5dp"
+                        android:layout_marginVertical="10dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="@color/colorSkin"
+                        android:paddingHorizontal="30dp"
+                        android:paddingVertical="10dp"
+                        android:text="Clue 2"
+                        android:textColor="@color/colorRedLight"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
 
-
         </ScrollView>
-
 
 
     </LinearLayout>
@@ -214,5 +296,7 @@
         android:textColor="@color/colorRedLight"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,25 +11,27 @@
         android:id="@+id/text_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginBottom="10dp"
         android:fontFamily="@font/lacasa"
         android:letterSpacing="0.05"
         android:text="@string/leaderboard"
+        android:layout_marginTop="10dp"
         android:textColor="@color/colorRedDark"
         android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/rvLeaderboard"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,7 +59,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="2nd team"
                 android:textColor="@color/colorRedDark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvSecondScore"
@@ -95,7 +97,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="1st team"
                 android:textColor="@color/colorRedDark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvFirstScore"
@@ -130,7 +132,7 @@
                 android:fontFamily="@font/roboto"
                 android:text="3rd team"
                 android:textColor="@color/colorRedDark"
-                android:textSize="22sp" />
+                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/tvThirdScore"
@@ -147,20 +149,6 @@
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tvYourTeam"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/roboto"
-        android:text="Your Rank"
-        android:gravity="center_horizontal"
-        android:textColor="@color/colorRedDark"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
-
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -168,11 +156,14 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="15dp"
         android:layout_marginVertical="8dp"
-        android:background="@drawable/red_border_bg"
+        android:background="@drawable/round_box_red"
         android:orientation="horizontal"
         android:paddingVertical="2dp"
-        app:layout_constraintTop_toBottomOf="@+id/tvYourTeam"
-        tools:layout_editor_absoluteX="15dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="675dp">
 
         <TextView
             android:id="@+id/tvYourPosition"
@@ -184,7 +175,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
             android:text="10"
-            android:textColor="@color/colorRedLight"
+            android:textColor="@color/colorSkin"
             android:textSize="22sp" />
 
         <TextView
@@ -197,7 +188,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
             android:text="Aditya Sood"
-            android:textColor="@color/colorRedLight"
+            android:textColor="@color/colorSkin"
             android:textSize="22sp" />
 
         <TextView
@@ -211,7 +202,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="15dp"
             android:text="100"
-            android:textColor="@color/colorRedLight"
+            android:textColor="@color/colorSkin"
             android:textSize="22sp" />
     </LinearLayout>
 
@@ -219,14 +210,14 @@
         android:id="@+id/rvLeaderboard"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="20dp"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:listitem="@layout/leaderboard_item"
-    />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.5"
+        tools:listitem="@layout/leaderboard_item" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,6 @@ data class Checkpoint(
     val _id: String,
     val cleared: Boolean,
     val endTime: Any,
-    val hints: List<Any>,
+    val helper: HintsSac,
     val startTime: String
 )

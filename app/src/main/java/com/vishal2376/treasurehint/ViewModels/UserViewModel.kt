@@ -31,6 +31,8 @@ class UserViewModel : ViewModel() {
     val userStatus: LiveData<ApiStatus> = _userStatus
     val _combineStatus = MutableLiveData<Pair<ApiStatus?, ApiStatus?>>()
     val combineStatus: LiveData<Pair<ApiStatus?, ApiStatus?>> = _combineStatus
+    val _hintStatus=MutableLiveData<ApiStatus>()
+    val hintStatus:LiveData<ApiStatus> = _hintStatus
     fun getUserData(loginData: LoginData) {
 
         viewModelScope.launch {
@@ -45,6 +47,19 @@ class UserViewModel : ViewModel() {
             } catch (e: Exception) {
                 _userStatus.value = ApiStatus.ERROR
                 Log.d("Network", "${e.message}")
+            }
+        }
+    }
+    fun getHint(loginData: LoginData){
+        viewModelScope.launch {
+            _hintStatus.value=ApiStatus.LOADING
+            try {
+                NetworkApiService.NetworkApi.retrofitService.useHint(loginData)
+                _hintStatus.value=ApiStatus.SUCCESS
+            }
+            catch (e:Exception)
+            {
+                _hintStatus.value=ApiStatus.ERROR
             }
         }
     }

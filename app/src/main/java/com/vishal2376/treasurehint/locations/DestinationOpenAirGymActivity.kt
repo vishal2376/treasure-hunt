@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
@@ -24,73 +25,108 @@ import com.vishal2376.treasurehint.util.Constants.Locations
 class DestinationOpenAirGymActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationOpenAirGymBinding? = null
     private val binding get() = _binding!!
-
+    lateinit var hint:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationOpenAirGymBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+        var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
         }
+        viewModel.userStatus.observe(
+            this,
+            Observer {
+                when(viewModel.userStatus.value){
+                    ApiStatus.SUCCESS-> {
+                        binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                        hint=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
+                    }
+                    ApiStatus.LOADING->{
+                        binding.tvCoin.text=""
+                    }
+                    ApiStatus.ERROR->{
+                        binding.tvCoin.text=""
 
-        binding.btnHintGym.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
-            builder.setTitle("Do you want to buy hint")
-            builder.setMessage("This hint will cost 100 coins")
+                    }
+                    else->
+                    {}
+                }
+            }
+        )
 
-            builder.setPositiveButton("Yes") { dialog, which ->
-                //Alert which will show the hint after buying
-
+        binding.btnHintGym.setOnClickListener {
+            if (hintCheck) {
                 val builder = AlertDialog.Builder(this)
-                builder.setTitle("Hint")
-                builder.setMessage("Here we will display hint")
+                builder.setTitle("Do you want to buy hint")
+                builder.setMessage("This hint will cost 50 coins")
+
+                builder.setPositiveButton("Yes") { dialog, which ->
+                    //Alert which will show the hint after buying
+
+                    val builder = AlertDialog.Builder(this)
+                    builder.setTitle("Hint")
+                    builder.setMessage(hint)
+
+                    builder.setNegativeButton(android.R.string.no) { dialog, which ->
+                        builder.setCancelable(true)
+                        hintCheck = false
+                    }
+                    viewModel.getHint(LoginData(Constants.Email!!, Constants.Password!!))
+                    builder.show()
+                }
+
 
                 builder.setNegativeButton(android.R.string.no) { dialog, which ->
                     builder.setCancelable(true)
                 }
+
                 builder.show()
+            } else {
+                Toast.makeText(this, "Hint Used", Toast.LENGTH_SHORT).show()
             }
-
-            builder.setNegativeButton(android.R.string.no) { dialog, which ->
-                builder.setCancelable(true)
-            }
-
-            builder.show()
         }
         binding.btnNext.setOnClickListener {
+            viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
+
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
-                    ApiStatus.SUCCESS-> {
-                        if (LocationCount <= 5) {
-                            val location = Locations[LocationCount - 1]
-                            NextLocation(location)
-                            LocationCount++
+                    ApiStatus.SUCCESS -> {
+                        if (viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.cleared == true) {
+                            if (LocationCount <= 5) {
+                                val location = Locations[LocationCount - 1]
+                                NextLocation(location)
+                                LocationCount++
+                            } else {
+                                val userJson = Gson().toJson(viewModel.user.value, User::class.java)
+                                val intent = Intent(this, LeaderboardActivity::class.java)
+                                intent.putExtra("UserJson", userJson)
+                                startActivity(intent)
+                            }
                         }
-                        else {
-                            val userJson= Gson().toJson(viewModel.user.value, User::class.java)
-                            Log.d("Satvik","${viewModel.user.value}")
-                            val intent = Intent(this, LeaderboardActivity::class.java)
-                            intent.putExtra("UserJson",userJson)
-                            startActivity(intent)
+                        else{
+                            Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
-                    ApiStatus.LOADING->
-                    {
-                        binding.btnNext.visibility= View.GONE
+                    ApiStatus.LOADING -> {
+                        binding.btnNext.visibility = View.GONE
                     }
-                    ApiStatus.ERROR->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    ApiStatus.ERROR -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(this, "Can't go to next Activity", Toast.LENGTH_SHORT).show()
                     }
-                    else->
-                    {
-                        binding.btnNext.visibility= View.VISIBLE
-                        Toast.makeText(this,"Can't go to next Activity",Toast.LENGTH_SHORT).show()
+                    else -> {
+                        binding.btnNext.visibility = View.VISIBLE
+                        Toast.makeText(this, "Can't go to next Activity", Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -99,30 +135,30 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
     }
 
 
-    private fun NextLocation(location: Int) {
+    fun NextLocation(location: Int) {
         when (location) {
             1 -> {
-                val intent = Intent(this, Destination4HActivity::class.java)
+                val intent = Intent(this, DestinationSACActivity::class.java)
                 startActivity(intent)
             }
 
             2 -> {
-                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
-                startActivity(intent)
-            }
-
-            3 -> {
-                val intent = Intent(this, DestinationGroundActivity::class.java)
-                startActivity(intent)
-            }
-
-            4 -> {
                 val intent = Intent(this, DestinationOpenAirGymActivity::class.java)
                 startActivity(intent)
             }
 
+            3 -> {
+                val intent = Intent(this, Destination4HActivity::class.java)
+                startActivity(intent)
+            }
+
+            4 -> {
+                val intent = Intent(this, DestinationGroundActivity::class.java)
+                startActivity(intent)
+            }
+
             5 -> {
-                val intent = Intent(this, DestinationSACActivity::class.java)
+                val intent = Intent(this, DestinationAuditoriumActivity::class.java)
                 startActivity(intent)
             }
 

@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,82 +20,83 @@ import com.vishal2376.treasurehint.models.User
 class LeaderboardActivity : AppCompatActivity() {
     private var _binding: ActivityLeaderboardBinding? = null
     private val binding get() = _binding!!
-    private val leaderboardArray= ArrayList<LeaderboardModel>()
-    private val leaderboardModel= LeaderboardModel()
+    private val leaderboardArray = ArrayList<LeaderboardModel>()
+    private val leaderboardModel = LeaderboardModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLeaderboardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val userJson=intent.getStringExtra("UserJson")
-        val user=Gson().fromJson(userJson, User::class.java)
-        val viewModel=ViewModelProvider(this).get(UserViewModel::class.java)
+
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
+        val userJson = intent.getStringExtra("UserJson")
+        val user = Gson().fromJson(userJson, User::class.java)
+        val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getLeaderBoard()
 
         leaderboardArray.add(leaderboardModel)
-        binding.rvLeaderboard.layoutManager=LinearLayoutManager(this)
+        binding.rvLeaderboard.layoutManager = LinearLayoutManager(this)
         viewModel.allStatus.observe(this, Observer {
-            val list=viewModel.leaderBoard.value?.teams?.sortedByDescending {it.score}
-            Log.i("adi ", "size is ${list?.size} ")
-            val size = list?.size
-            binding.tvYourTeam.text = user.team.name
-            binding.tvYourScore.text = user.team.score.toString()
-            Log.d("Network","${user.team}")
-//            val index = list!!.indexOfFirst{
-//                it.name == user.team.name
-//            }
-//            Log.i("adi", "$index")
-//
-//            binding.tvYourPosition.text = index.toString()
 
-
-//            for(i in 0 until size!!){
-//                var index =0
-//                if(list[i].name == user.team.name){
-//                   index = i+1
-//                }
-//            }
-
-            if (size != null) {
-                when (size) {
-                    1 -> {
-                        binding.tvFirst.text = list[0].name
-                    }
-                    2 -> {
-                        binding.tvFirst.text = list[0].name
-                        binding.tvSecond.text = list[1].name
-                    }
-                    else -> {
-                        binding.tvFirst.text = list[0].name
-                        binding.tvSecond.text = list[1].name
-                        binding.tvThird.text = list[2].name
-                    }
+            when (viewModel.allStatus.value) {
+                ApiStatus.LOADING -> {}
+                ApiStatus.ERROR -> {
+                    Toast.makeText(this, "UNABLE TO FETCH LEADERBOARD", Toast.LENGTH_SHORT).show()
                 }
+
+                ApiStatus.SUCCESS -> {
+                    val list = viewModel.leaderBoard.value?.teams?.sortedByDescending { it.score }
+                    Log.i("adi ", "size is ${list?.size} ")
+                    val size = list?.size
+                    binding.tvYourName.text = user.team.name
+                    binding.tvYourScore.text = user.team.score.toString()
+                    Log.d("Network", "${user.team}")
+                    val index = list!!.indexOfFirst {
+                        it.name == user.team.name
+                    }
+
+                    binding.tvYourPosition.text = (index + 1).toString()
+
+
+                    if (size != null) {
+                        when (size) {
+                            1 -> {
+                                binding.tvFirst.text = list[0].name
+                                binding.tvFirstScore.text = list[0].score.toString()
+                            }
+                            2 -> {
+                                binding.tvFirst.text = list[0].name
+                                binding.tvFirstScore.text = list[0].score.toString()
+                                binding.tvSecond.text = list[1].name
+                                binding.tvSecondScore.text = list[1].score.toString()
+                            }
+                            else -> {
+                                binding.tvFirst.text = list[0].name
+                                binding.tvFirstScore.text = list[0].score.toString()
+                                binding.tvSecond.text = list[1].name
+                                binding.tvSecondScore.text = list[1].score.toString()
+                                binding.tvThird.text = list[2].name
+                                binding.tvThirdScore.text = list[2].score.toString()
+
+                            }
+                        }
+                    }
+                    if (size != null) {
+                        if (size > 3) {
+                            binding.rvLeaderboard.adapter = LeaderboardAdapter(list)
+                        } else {
+                            binding.rvLeaderboard.visibility = View.GONE
+                        }
+                    }
+
+                }
+                else -> {}
+
             }
-          when(viewModel.allStatus.value)
-          {
-              ApiStatus.LOADING->{}
-              ApiStatus.ERROR->{
-                  Toast.makeText(this,"UNABLE TO FETCH LEADERBOARD",Toast.LENGTH_SHORT).show()
-              }
-
-              ApiStatus.SUCCESS->{
-                  if (size != null) {
-                      if(size>3){
-                          binding.rvLeaderboard.adapter = LeaderboardAdapter(list)
-
-                      }
-                      else{
-                          binding.rvLeaderboard.visibility = View.GONE
-                      }
-                  }
-
-              }
-              else->{}
-
-          }
-
-
 
 
         })

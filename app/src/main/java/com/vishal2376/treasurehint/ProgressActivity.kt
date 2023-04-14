@@ -2,6 +2,7 @@ package com.vishal2376.treasurehint
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.vishal2376.treasurehint.adapters.ProgressAdapter
 import com.vishal2376.treasurehint.databinding.ActivityProgressBinding
@@ -16,9 +17,14 @@ class ProgressActivity : AppCompatActivity() {
         _binding = ActivityProgressBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+
+        //only light mode
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+
+
         binding.rvProgress.let {
             it.layoutManager = LinearLayoutManager(this)
-            it.adapter = ProgressAdapter(Constants.Checkpoints)
+            it.adapter = ProgressAdapter(Constants.Checkpoints1)
         }
 
 
