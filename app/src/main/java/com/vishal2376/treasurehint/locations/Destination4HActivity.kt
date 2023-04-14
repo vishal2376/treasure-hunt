@@ -28,7 +28,7 @@ import com.vishal2376.treasurehint.util.Constants.Password
 class Destination4HActivity : AppCompatActivity() {
     private var _binding: ActivityDestination4HactivityBinding? = null
     private val binding get() = _binding!!
-
+    lateinit var hints:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestination4HactivityBinding.inflate(layoutInflater)
@@ -57,7 +57,7 @@ class Destination4HActivity : AppCompatActivity() {
 
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Hint")
-                    builder.setMessage("Here we will display hint")
+                    builder.setMessage(hints)
 
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
                         builder.setCancelable(true)
@@ -131,6 +131,7 @@ class Destination4HActivity : AppCompatActivity() {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                        hints=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
                     }
                     ApiStatus.LOADING -> {
                         binding.tvCoin.text = ""

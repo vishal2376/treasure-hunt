@@ -25,7 +25,7 @@ import com.vishal2376.treasurehint.util.Constants.Locations
 class DestinationOpenAirGymActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationOpenAirGymBinding? = null
     private val binding get() = _binding!!
-
+    lateinit var hint:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationOpenAirGymBinding.inflate(layoutInflater)
@@ -49,6 +49,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
                 when(viewModel.userStatus.value){
                     ApiStatus.SUCCESS-> {
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
+                        hint=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
                     }
                     ApiStatus.LOADING->{
                         binding.tvCoin.text=""
@@ -74,7 +75,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
 
                     val builder = AlertDialog.Builder(this)
                     builder.setTitle("Hint")
-                    builder.setMessage("Here we will display hint")
+                    builder.setMessage(hint)
 
                     builder.setNegativeButton(android.R.string.no) { dialog, which ->
                         builder.setCancelable(true)
