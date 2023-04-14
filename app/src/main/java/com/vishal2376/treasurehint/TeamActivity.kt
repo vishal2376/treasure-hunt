@@ -7,13 +7,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.google.gson.Gson
 import com.vishal2376.treasurehint.databinding.ActivityTeamBinding
-
-import com.vishal2376.treasurehint.locations.*
+import com.vishal2376.treasurehint.locations.DestinationSPActivity
 import com.vishal2376.treasurehint.models.User
-import com.vishal2376.treasurehint.util.Constants.LocationCount
-import com.vishal2376.treasurehint.util.Constants.Locations
-import java.time.OffsetDateTime
-import java.time.format.DateTimeFormatter
 import java.util.*
 
 class TeamActivity : AppCompatActivity() {
@@ -38,24 +33,23 @@ class TeamActivity : AppCompatActivity() {
 
 //        dateSetter(user.team.checkpoints[0].startTime)
         binding.btnStart.setOnClickListener {
-            if(isCurrentTimeEqualTo1PM()){
-                startActivity(Intent(this@TeamActivity,DestinationSPActivity::class.java))
+            if (isCurrentTimeEqualTo1PM()) {
+                startActivity(Intent(this@TeamActivity, DestinationSPActivity::class.java))
 
-            }
-            else{
-                Toast.makeText(this, "The Hunt will start at 1 pm", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this, "The Hunt will start at 1:30 pm", Toast.LENGTH_SHORT).show()
             }
 
         }
     }
-//TODO
+
+    //TODO
     fun isCurrentTimeEqualTo1PM(): Boolean {
         val currentTime = Calendar.getInstance()
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
         val minute = currentTime.get(Calendar.MINUTE)
-        return hour >= 2 && minute >= 0
+        return hour >= 13 && minute >= 30
     }
-
 
 
 }

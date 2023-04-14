@@ -2,7 +2,6 @@ package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -25,7 +24,7 @@ import com.vishal2376.treasurehint.util.Constants.Locations
 class DestinationOpenAirGymActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationOpenAirGymBinding? = null
     private val binding get() = _binding!!
-    lateinit var hint:String
+    lateinit var hint: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationOpenAirGymBinding.inflate(layoutInflater)
@@ -46,20 +45,23 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
         viewModel.userStatus.observe(
             this,
             Observer {
-                when(viewModel.userStatus.value){
-                    ApiStatus.SUCCESS-> {
+                when (viewModel.userStatus.value) {
+                    ApiStatus.SUCCESS -> {
+                        binding.btnNext.visibility = View.VISIBLE
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                        hint=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
+                        hint =
+                            viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.helper?.hints?.get(
+                                0
+                            ).toString()
                     }
-                    ApiStatus.LOADING->{
-                        binding.tvCoin.text=""
+                    ApiStatus.LOADING -> {
+                        binding.tvCoin.text = ""
                     }
-                    ApiStatus.ERROR->{
-                        binding.tvCoin.text=""
+                    ApiStatus.ERROR -> {
+                        binding.tvCoin.text = ""
 
                     }
-                    else->
-                    {}
+                    else -> {}
                 }
             }
         )
@@ -112,8 +114,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
                                 intent.putExtra("UserJson", userJson)
                                 startActivity(intent)
                             }
-                        }
-                        else{
+                        } else {
                             Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -167,6 +168,7 @@ class DestinationOpenAirGymActivity : AppCompatActivity() {
             }
         }
     }
+
     override fun onBackPressed() {
 
     }

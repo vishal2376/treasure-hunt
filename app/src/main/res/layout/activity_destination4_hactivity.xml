@@ -120,6 +120,7 @@
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/colorSkin"
         android:paddingHorizontal="30dp"
+        android:visibility="gone"
         android:paddingVertical="10dp"
         android:text="@string/hint"
         android:textColor="@color/colorRedLight"

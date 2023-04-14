@@ -43,7 +43,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
         viewModel.getUserData(LoginData(Constants.Email!!, Constants.Password!!))
-        lateinit var hint:String
+        lateinit var hint: String
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
@@ -56,7 +56,10 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                     ApiStatus.SUCCESS -> {
 
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                        hint=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
+                        hint =
+                            viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.helper?.hints?.get(
+                                0
+                            ).toString()
                     }
                     ApiStatus.LOADING -> {
                         binding.tvCoin.text = ""
@@ -118,8 +121,6 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             }
 
 
-
-
         }
         binding.btnVerifyMorse.setOnClickListener {
             if (binding.editMorse.text.toString() == viewModel.user.value?.team?.helpers?.morseCode.toString()) {
@@ -136,10 +137,8 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             try {
                 startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(link12?.trim())))
 
-            }
-            catch (e:java.lang.Exception)
-            {
-                Log.d("Errors","${e.message}")
+            } catch (e: java.lang.Exception) {
+                Log.d("Errors", "${e.message}")
             }
         }
         binding.btnLink2.setOnClickListener {
@@ -155,6 +154,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
+                        binding.btnNext.visibility = View.VISIBLE
                         if (viewModel.user.value?.team?.checkpoints?.get(4)?.cleared == true) {
                             if (LocationCount <= 5) {
                                 val location = Locations[LocationCount - 1]

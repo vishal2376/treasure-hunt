@@ -2,8 +2,6 @@ package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
@@ -28,7 +26,7 @@ import com.vishal2376.treasurehint.util.Constants.Password
 class DestinationSACActivity : AppCompatActivity() {
     private var _binding: ActivityDestinationSacactivityBinding? = null
     private val binding get() = _binding!!
-    lateinit var hint:String
+    lateinit var hint: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestinationSacactivityBinding.inflate(layoutInflater)
@@ -50,21 +48,23 @@ class DestinationSACActivity : AppCompatActivity() {
         viewModel.userStatus.observe(
             this,
             Observer {
-                when(viewModel.userStatus.value){
-                    ApiStatus.SUCCESS-> {
+                when (viewModel.userStatus.value) {
+                    ApiStatus.SUCCESS -> {
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                        hint=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
+                        hint =
+                            viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.helper?.hints?.get(
+                                0
+                            ).toString()
 
                     }
-                    ApiStatus.LOADING->{
-                        binding.tvCoin.text=""
+                    ApiStatus.LOADING -> {
+                        binding.tvCoin.text = ""
                     }
-                    ApiStatus.ERROR->{
-                        binding.tvCoin.text=""
+                    ApiStatus.ERROR -> {
+                        binding.tvCoin.text = ""
 
                     }
-                    else->
-                    {}
+                    else -> {}
                 }
             }
         )
@@ -110,6 +110,8 @@ class DestinationSACActivity : AppCompatActivity() {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
+                        binding.btnNext.visibility = View.VISIBLE
+
                         if (viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.cleared == true) {
                             if (LocationCount <= 5) {
                                 val location = Locations[LocationCount - 1]
@@ -121,8 +123,7 @@ class DestinationSACActivity : AppCompatActivity() {
                                 intent.putExtra("UserJson", userJson)
                                 startActivity(intent)
                             }
-                        }
-                        else{
+                        } else {
                             Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -178,4 +179,5 @@ class DestinationSACActivity : AppCompatActivity() {
                 Toast.makeText(this, "Failed to load Next Location.", Toast.LENGTH_SHORT).show()
             }
         }
-    }}
+    }
+}

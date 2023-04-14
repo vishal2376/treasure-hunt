@@ -1,7 +1,6 @@
 package com.vishal2376.treasurehint.locations
 
 import android.content.Intent
-import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -10,7 +9,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.google.gson.Gson
 import com.vishal2376.treasurehint.LeaderboardActivity
@@ -28,7 +26,7 @@ import com.vishal2376.treasurehint.util.Constants.Password
 class Destination4HActivity : AppCompatActivity() {
     private var _binding: ActivityDestination4HactivityBinding? = null
     private val binding get() = _binding!!
-    lateinit var hints:String
+    lateinit var hints: String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDestination4HactivityBinding.inflate(layoutInflater)
@@ -39,7 +37,7 @@ class Destination4HActivity : AppCompatActivity() {
 
         var hintCheck = true
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
-         viewModel.getUserData(LoginData(Email!!, Password!!))
+        viewModel.getUserData(LoginData(Email!!, Password!!))
         binding.tvCheckpoint.setOnClickListener {
             val intent = Intent(this, ProgressActivity::class.java)
             startActivity(intent)
@@ -81,12 +79,13 @@ class Destination4HActivity : AppCompatActivity() {
         binding.btnNext.setOnClickListener {
             viewModel.getUserData(LoginData(Email!!, Password!!))
             viewModel.userStatus.observe(this, Observer {
-                Log.e("@@@", Locations[LocationCount-1].toString())
+                Log.e("@@@", Locations[LocationCount - 1].toString())
                 Log.e("@@@@", LocationCount.toString())
 
                 when (viewModel.userStatus.value) {
 
                     ApiStatus.SUCCESS -> {
+                        binding.btnNext.visibility = View.VISIBLE
 
                         if (viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.cleared == true) {
                             if (LocationCount <= 5) {
@@ -99,8 +98,7 @@ class Destination4HActivity : AppCompatActivity() {
                                 intent.putExtra("UserJson", userJson)
                                 startActivity(intent)
                             }
-                        }
-                        else{
+                        } else {
                             Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
                         }
                     }
@@ -124,6 +122,7 @@ class Destination4HActivity : AppCompatActivity() {
 
 
     }
+
     fun updateCoins(viewModel: UserViewModel) {
         viewModel.userStatus.observe(
             this,
@@ -131,7 +130,10 @@ class Destination4HActivity : AppCompatActivity() {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
                         binding.tvCoin.text = viewModel.user.value?.team?.score.toString()
-                        hints=viewModel.user.value?.team?.checkpoints?.get(LocationCount-2)?.helper?.hints?.get(0).toString()
+                        hints =
+                            viewModel.user.value?.team?.checkpoints?.get(LocationCount - 2)?.helper?.hints?.get(
+                                0
+                            ).toString()
                     }
                     ApiStatus.LOADING -> {
                         binding.tvCoin.text = ""

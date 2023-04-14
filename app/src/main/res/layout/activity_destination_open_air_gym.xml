@@ -122,6 +122,7 @@
         android:backgroundTint="@color/colorSkin"
         android:paddingHorizontal="30dp"
         android:paddingVertical="10dp"
+        android:visibility="gone"
         android:text="@string/hint"
         android:textColor="@color/colorRedLight"
         app:layout_constraintBottom_toBottomOf="parent"
