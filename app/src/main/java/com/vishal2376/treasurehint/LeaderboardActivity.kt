@@ -36,7 +36,12 @@ class LeaderboardActivity : AppCompatActivity() {
         val userJson = intent.getStringExtra("UserJson")
         val user = Gson().fromJson(userJson, User::class.java)
         val viewModel = ViewModelProvider(this).get(UserViewModel::class.java)
+
         viewModel.getLeaderBoard()
+
+        binding.btnRefresh.setOnClickListener {
+            viewModel.getLeaderBoard()
+        }
 
         leaderboardArray.add(leaderboardModel)
         binding.rvLeaderboard.layoutManager = LinearLayoutManager(this)

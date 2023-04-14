@@ -7,14 +7,24 @@
     android:background="@color/colorSkin"
     tools:context=".LeaderboardActivity">
 
+    <ImageView
+        android:id="@+id/btnRefresh"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="15dp"
+        android:src="@drawable/baseline_refresh_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/text_leaderboard"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:fontFamily="@font/lacasa"
         android:letterSpacing="0.05"
         android:text="@string/leaderboard"
-        android:layout_marginTop="10dp"
         android:textColor="@color/colorRedDark"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
