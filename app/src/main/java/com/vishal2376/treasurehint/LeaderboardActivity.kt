@@ -14,15 +14,11 @@ import com.vishal2376.treasurehint.ViewModels.ApiStatus
 import com.vishal2376.treasurehint.ViewModels.UserViewModel
 import com.vishal2376.treasurehint.adapters.LeaderboardAdapter
 import com.vishal2376.treasurehint.databinding.ActivityLeaderboardBinding
-import com.vishal2376.treasurehint.models.LeaderboardModel
 import com.vishal2376.treasurehint.models.User
 
 class LeaderboardActivity : AppCompatActivity() {
     private var _binding: ActivityLeaderboardBinding? = null
     private val binding get() = _binding!!
-    private val leaderboardArray = ArrayList<LeaderboardModel>()
-    private val leaderboardModel = LeaderboardModel()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLeaderboardBinding.inflate(layoutInflater)
@@ -43,7 +39,6 @@ class LeaderboardActivity : AppCompatActivity() {
             viewModel.getLeaderBoard()
         }
 
-        leaderboardArray.add(leaderboardModel)
         binding.rvLeaderboard.layoutManager = LinearLayoutManager(this)
         viewModel.allStatus.observe(this, Observer {
 
