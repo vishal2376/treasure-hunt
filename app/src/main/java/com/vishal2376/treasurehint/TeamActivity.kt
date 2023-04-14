@@ -33,7 +33,7 @@ class TeamActivity : AppCompatActivity() {
 
 //        dateSetter(user.team.checkpoints[0].startTime)
         binding.btnStart.setOnClickListener {
-            if (isCurrentTimeEqualTo1PM()) {
+            if (true) {
                 startActivity(Intent(this@TeamActivity, DestinationSPActivity::class.java))
 
             } else {
@@ -48,7 +48,7 @@ class TeamActivity : AppCompatActivity() {
         val currentTime = Calendar.getInstance()
         val hour = currentTime.get(Calendar.HOUR_OF_DAY)
         val minute = currentTime.get(Calendar.MINUTE)
-        return hour >= 13 && minute >= 30
+        return hour >= 14 && minute >= 0
     }
 
 
