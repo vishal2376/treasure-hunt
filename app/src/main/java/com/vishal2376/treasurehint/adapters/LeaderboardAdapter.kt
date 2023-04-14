@@ -9,10 +9,7 @@ import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.vishal2376.treasurehint.R
-import com.vishal2376.treasurehint.models.LeaderBoard
-import com.vishal2376.treasurehint.models.LeaderboardModel
 import com.vishal2376.treasurehint.models.Team
 
 class LeaderboardAdapter(val list: List<Team>):RecyclerView.Adapter<LeaderboardAdapter.ViewHolder>() {
