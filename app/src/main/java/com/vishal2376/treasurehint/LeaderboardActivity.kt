@@ -37,6 +37,7 @@ class LeaderboardActivity : AppCompatActivity() {
 
         binding.btnRefresh.setOnClickListener {
             viewModel.getLeaderBoard()
+            Toast.makeText(this, "Refreshing LeaderBoard ....", Toast.LENGTH_SHORT).show()
         }
 
         binding.rvLeaderboard.layoutManager = LinearLayoutManager(this)

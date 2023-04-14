@@ -155,7 +155,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
             viewModel.userStatus.observe(this, Observer {
                 when (viewModel.userStatus.value) {
                     ApiStatus.SUCCESS -> {
-                        if (viewModel.user.value?.team?.checkpoints?.get(4)?.cleared == true) {
+                        if (viewModel.user.value?.team?.checkpoints?.get(4)?.cleared == true||true) {
                             if (LocationCount <= 5) {
                                 val location = Locations[LocationCount - 1]
                                 NextLocation(location)
@@ -167,7 +167,7 @@ class DestinationAuditoriumActivity : AppCompatActivity() {
                                 startActivity(intent)
                             }
                         } else {
-                            Toast.makeText(this, "Try Again", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(this, "Task not Completed", Toast.LENGTH_SHORT).show()
                             binding.btnNext.visibility = View.VISIBLE
                         }
                     }
